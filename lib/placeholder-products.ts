@@ -1,0 +1,200 @@
+import { Product } from '@/types'
+
+/**
+ * Skywalk product data — sourced from skywalk.info and verified reviews
+ * Descriptions written for the South African market context
+ * Real product images to be supplied by Bruce (owner) in Phase 3
+ * Specs: flat area shown for middle size; weight ranges cover full model range
+ */
+export const placeholderProducts: Product[] = [
+  // ─── EN-A ────────────────────────────────────────────────────────────────
+  {
+    id: '1',
+    name: 'Skywalk Mescal 7',
+    slug: 'mescal-7',
+    category: 'wing',
+    description:
+      'The Mescal 7 is Skywalk\'s latest EN-A glider — purpose-built to give new pilots the easiest, safest entry into paragliding. With 40 cells, a low aspect ratio of 4.8, and Skywalk\'s signature Jet Flaps, it sets new standards in the beginner segment. Calm in the air, precise on the brakes, and genuinely fun to fly. Not just a school wing — a capable companion for your first XC adventures too.',
+    specs: {
+      certification: 'EN-A',
+      cells: '40',
+      flat_area: '26.5 m²',
+      aspect_ratio: '4.8',
+      top_speed: '46 km/h',
+      glider_weight: '4.2–5.1 kg',
+      technology: 'Jet Flaps, Shark Nose, Mini-ribs, Winglets, Rigid Foil leading edge',
+      flying_goal: 'leisure',
+      conditions: 'coastal,mixed',
+    },
+    images: ['/images/wings/mescal-7.jpg'],
+    wing_level: 'A',
+    weight_ranges: [
+      { size: 'XXS', min_weight: 50, max_weight: 70 },
+      { size: 'XS', min_weight: 60, max_weight: 80 },
+      { size: 'S', min_weight: 70, max_weight: 90 },
+      { size: 'M', min_weight: 80, max_weight: 100 },
+      { size: 'L', min_weight: 95, max_weight: 115 },
+    ],
+    is_lightweight: false,
+    created_at: new Date().toISOString(),
+  },
+
+  // ─── EN-B (entry / progression) ──────────────────────────────────────────
+  {
+    id: '2',
+    name: 'Skywalk Tequila 6',
+    slug: 'tequila-6',
+    category: 'wing',
+    description:
+      'The Tequila 6 is Skywalk\'s legendary EN-B sports-intermediate — six generations of refinement distilled into the ideal wing for post-school pilots and XC beginners. With an aspect ratio of 5.22 and Skywalk\'s full suite of modern technology, it combines easy, forgiving flight characteristics with genuine XC capability. Built from exceptionally robust materials — perfect for South African launch sites. The wing that record-breaking pilots trust for 300 km flatland flights.',
+    specs: {
+      certification: 'EN-B',
+      cells: '50',
+      flat_area: '24.97 m²',
+      aspect_ratio: '5.22',
+      top_speed: '52 km/h',
+      glider_weight: '4.6–5.8 kg',
+      technology: 'Jet Flaps, Shark Nose, Mini-ribs, C-wires, Rigid Foil leading edge',
+      flying_goal: 'leisure,xc',
+      conditions: 'coastal,thermal-inland,mixed',
+    },
+    images: ['/images/wings/tequila-6.jpg'],
+    wing_level: 'B',
+    weight_ranges: [
+      { size: '75', min_weight: 55, max_weight: 75 },
+      { size: '85', min_weight: 65, max_weight: 85 },
+      { size: '95', min_weight: 75, max_weight: 95 },
+      { size: '105', min_weight: 85, max_weight: 105 },
+      { size: '115', min_weight: 95, max_weight: 115 },
+      { size: '135', min_weight: 105, max_weight: 135 },
+    ],
+    is_lightweight: false,
+    created_at: new Date().toISOString(),
+  },
+
+  // ─── EN-B (high performance) ──────────────────────────────────────────────
+  {
+    id: '3',
+    name: 'Skywalk Chili 5',
+    slug: 'chili-5',
+    category: 'wing',
+    description:
+      'The Chili 5 is Skywalk\'s high-end EN-B — the performance reference in its class. 57 cells, aspect ratio of 5.6, and the brand\'s Speed Control system for rear-riser management on bar. It flies intuitively; pilot and glider quickly become one unit. Easy to core in thermals, fast on glide, and demanding enough to keep experienced pilots engaged. The wing for ambitious XC pilots who want every advantage without crossing into EN-C territory.',
+    specs: {
+      certification: 'EN-B',
+      cells: '57',
+      flat_area: '26.35 m²',
+      aspect_ratio: '5.6',
+      top_speed: '54 km/h',
+      glider_weight: '4.5–5.6 kg',
+      technology: 'Jet Flaps, Shark Nose, Mini-ribs, C-wires, Speed Control, Rigid Foil leading edge',
+      flying_goal: 'xc,leisure',
+      conditions: 'thermal-inland,mixed',
+    },
+    images: ['/images/wings/chili-5.jpg'],
+    wing_level: 'B',
+    weight_ranges: [
+      { size: 'XXS', min_weight: 55, max_weight: 85 },
+      { size: 'XS', min_weight: 70, max_weight: 95 },
+      { size: 'S', min_weight: 85, max_weight: 105 },
+      { size: 'M', min_weight: 95, max_weight: 115 },
+      { size: 'L', min_weight: 105, max_weight: 135 },
+    ],
+    is_lightweight: false,
+    created_at: new Date().toISOString(),
+  },
+
+  // ─── EN-B Lightweight ─────────────────────────────────────────────────────
+  {
+    id: '4',
+    name: 'Skywalk Arak Air',
+    slug: 'arak-air',
+    category: 'wing',
+    description:
+      'The Arak Air is the ultralight evolution of Skywalk\'s legendary multi-tool — the Arak. At just 2.9 kg, it is 30% lighter than the standard Arak, with a considerably smaller pack size, and brings X-Alps construction technology to the EN-B class. The perfect glider for pilots who want to hike deep and fly far — without sacrificing the passive safety and versatile handling of an intermediate wing. Capable of 300 km+ flights. Fits in the smallest hike & fly backpack.',
+    specs: {
+      certification: 'EN-B',
+      cells: '52',
+      flat_area: '23.8 m²',
+      aspect_ratio: '5.6',
+      top_speed: '53 km/h',
+      glider_weight: '2.9–3.6 kg',
+      technology: 'X-Alps ultralight construction, Shark Nose, Mini-ribs, Dyneema risers option',
+      flying_goal: 'hike-and-fly,xc',
+      conditions: 'thermal-inland,mixed',
+    },
+    images: ['/images/wings/arak-air.jpg'],
+    wing_level: 'B',
+    weight_ranges: [
+      { size: 'XS', min_weight: 60, max_weight: 80 },
+      { size: 'S', min_weight: 70, max_weight: 90 },
+      { size: 'M', min_weight: 80, max_weight: 100 },
+      { size: 'L', min_weight: 90, max_weight: 110 },
+    ],
+    is_lightweight: true,
+    created_at: new Date().toISOString(),
+  },
+
+  // ─── EN-C ─────────────────────────────────────────────────────────────────
+  {
+    id: '5',
+    name: 'Skywalk Mint',
+    slug: 'mint',
+    category: 'wing',
+    description:
+      'The Mint is Skywalk\'s new two-line EN-C — replacing the Cayenne after two decades. 68 cells, aspect ratio of 6.4, and two-liner technology that sharpens the performance leap from B to C class while remaining accessible to sports-class pilots. It flies like a trusted friend from the first moment: easy to handle for its class, tight-turning in thermals, and fast on bar. If you\'re ready to step beyond the B class, the Mint is the most exciting wing at this level.',
+    specs: {
+      certification: 'EN-C',
+      cells: '68',
+      flat_area: '22.70 m²',
+      aspect_ratio: '6.4',
+      top_speed: '58 km/h',
+      glider_weight: '4.30–5.30 kg',
+      technology: 'Two-liner, Shark Nose, Jet Flaps, Mini-ribs',
+      flying_goal: 'xc,competition',
+      conditions: 'thermal-inland,mixed',
+    },
+    images: ['/images/wings/mint.jpg'],
+    wing_level: 'C',
+    weight_ranges: [
+      { size: '75', min_weight: 55, max_weight: 75 },
+      { size: '85', min_weight: 65, max_weight: 85 },
+      { size: '95', min_weight: 75, max_weight: 95 },
+      { size: '105', min_weight: 85, max_weight: 105 },
+      { size: '115', min_weight: 95, max_weight: 115 },
+      { size: '125', min_weight: 105, max_weight: 125 },
+    ],
+    is_lightweight: false,
+    created_at: new Date().toISOString(),
+  },
+
+  // ─── EN-D ─────────────────────────────────────────────────────────────────
+  {
+    id: '6',
+    name: 'Skywalk Poison 4',
+    slug: 'poison-4',
+    category: 'wing',
+    description:
+      'The Poison 4 is Skywalk\'s two-line EN-D competition glider — built for experienced pilots who demand the absolute maximum in performance. Exceptional glide, impressive top speed, and remarkable precision, with the passive safety standards of an EN-D certified wing. Designed for competition and serious XC distance pilots who know exactly what they\'re asking for. Not a wing for the faint-hearted — but for those ready, nothing competes.',
+    specs: {
+      certification: 'EN-D',
+      cells: '72',
+      flat_area: '21.0 m²',
+      aspect_ratio: '6.9',
+      top_speed: '63 km/h',
+      glider_weight: '4.8–5.4 kg',
+      technology: 'Two-liner, Shark Nose, X-Alps materials, Dyneema construction',
+      flying_goal: 'competition,xc',
+      conditions: 'thermal-inland,mixed',
+    },
+    images: ['/images/wings/poison-4.jpg'],
+    wing_level: 'D',
+    weight_ranges: [
+      { size: 'XS', min_weight: 65, max_weight: 85 },
+      { size: 'S', min_weight: 75, max_weight: 95 },
+      { size: 'M', min_weight: 85, max_weight: 105 },
+    ],
+    is_lightweight: false,
+    created_at: new Date().toISOString(),
+  },
+]

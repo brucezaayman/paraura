@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ─────────────────────────────────────────────── */
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-stone-950 text-white;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+}
+
+/* ─── Components ─────────────────────────────────────────── */
+@layer components {
+
+  /* Display headings */
+  .display-xl {
+    font-family: var(--font-display);
+    @apply text-5xl md:text-7xl lg:text-8xl font-light;
+    letter-spacing: -0.02em;
+    line-height: 1.0;
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    @apply text-4xl md:text-5xl lg:text-6xl font-light;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .display-md {
+    font-family: var(--font-display);
+    @apply text-3xl md:text-4xl font-light;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    @apply text-xs tracking-widest uppercase text-stone-400 font-medium;
+    font-family: var(--font-body);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply bg-white text-stone-950 font-medium;
+    @apply px-7 py-3.5 rounded-full;
+    @apply text-sm tracking-wide;
+    @apply transition-all duration-200;
+    @apply hover:bg-sky-100 hover:scale-[1.02] active:scale-[0.98];
+    font-family: var(--font-body);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply border border-white/20 text-white font-medium;
+    @apply px-7 py-3.5 rounded-full;
+    @apply text-sm tracking-wide;
+    @apply transition-all duration-200;
+    @apply hover:border-white/60 hover:bg-white/5 active:scale-[0.98];
+    font-family: var(--font-body);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply text-stone-400 font-medium;
+    @apply px-4 py-2.5 rounded-full;
+    @apply text-sm tracking-wide;
+    @apply transition-all duration-200;
+    @apply hover:text-white hover:bg-white/5;
+    font-family: var(--font-body);
+  }
+
+  /* Wing level badges */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium tracking-wide;
+    font-family: var(--font-body);
+  }
+
+  .badge-A {
+    @apply badge bg-emerald-950/60 text-emerald-400 border border-emerald-900;
+  }
+
+  .badge-B {
+    @apply badge bg-sky-950/60 text-sky-400 border border-sky-900;
+  }
+
+  .badge-C {
+    @apply badge bg-amber-950/60 text-amber-400 border border-amber-900;
+  }
+
+  .badge-D {
+    @apply badge bg-red-950/60 text-red-400 border border-red-900;
+  }
+
+  /* Nav links */
+  .nav-link {
+    @apply text-stone-300 hover:text-white text-sm font-medium transition-colors duration-200;
+    font-family: var(--font-body);
+  }
+
+  .mobile-nav-link {
+    @apply block text-2xl font-light py-4 border-b border-white/5 text-stone-200 hover:text-white transition-colors;
+    font-family: var(--font-display);
+  }
+
+  /* Section container */
+  .section {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-stone-900/50 border border-white/5 rounded-2xl overflow-hidden;
+    @apply transition-all duration-300;
+    @apply hover:border-white/10 hover:bg-stone-900/80;
+  }
+
+  /* Spec table row */
+  .spec-row {
+    @apply flex items-start justify-between py-3 border-b border-white/5 last:border-0;
+  }
+
+  /* Step indicator */
+  .step-dot {
+    @apply w-2 h-2 rounded-full transition-all duration-300;
+  }
+
+  /* Form input */
+  .input {
+    @apply w-full bg-stone-900/50 border border-white/10 rounded-xl px-4 py-3.5;
+    @apply text-white placeholder:text-stone-600;
+    @apply focus:outline-none focus:border-sky-400/50 focus:ring-1 focus:ring-sky-400/20;
+    @apply transition-all duration-200;
+    font-family: var(--font-body);
+  }
+
+  /* Textarea */
+  .textarea {
+    @apply input resize-none;
+  }
+
+  /* Select */
+  .select {
+    @apply input appearance-none cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a8a29e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  /* Label */
+  .label {
+    @apply text-xs tracking-widest uppercase text-stone-400 font-medium mb-2 block;
+    font-family: var(--font-body);
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-white/5;
+  }
+}
