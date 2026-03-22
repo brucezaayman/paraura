@@ -77,9 +77,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen bg-stone-950 flex">
-      {/* ── Sidebar (desktop) ─────────────────────────── */}
+      {/* Sidebar (desktop) */}
       <aside className="hidden lg:flex flex-col w-56 border-r border-white/5 shrink-0">
-        {/* Logo */}
         <div className="px-5 py-6 border-b border-white/5">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-6 h-6 rounded-full bg-sky-400 flex items-center justify-center shrink-0">
@@ -92,7 +91,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <p className="text-stone-600 text-xs mt-1 pl-8">Admin</p>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-1">
           {NAV_ITEMS.map((item) => {
             const active = pathname?.startsWith(item.href)
@@ -102,8 +100,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-150 ${
                   active
-                    ? 'bg-white/8 text-white'
-                    : 'text-stone-400 hover:text-white hover:bg-white/4'
+                    ? 'bg-white/10 text-white'
+                    : 'text-stone-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {item.icon}
@@ -113,11 +111,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        {/* Sign out */}
         <div className="px-3 py-4 border-t border-white/5">
           <button
             onClick={signOut}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-stone-500 hover:text-white hover:bg-white/4 transition-all w-full"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-stone-500 hover:text-white hover:bg-white/5 transition-all w-full"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -127,7 +124,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* ── Mobile header ─────────────────────────────── */}
+      {/* Mobile header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-stone-950/95 backdrop-blur border-b border-white/5 flex items-center justify-between px-4 h-14">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 rounded-full bg-sky-400 flex items-center justify-center shrink-0">
@@ -137,10 +134,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
           <span className="text-white text-xs font-medium tracking-widest uppercase">{currentLabel}</span>
         </div>
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-stone-400 hover:text-white p-1"
-        >
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-stone-400 hover:text-white p-1">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileOpen
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -175,7 +169,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       )}
 
-      {/* ── Main content ──────────────────────────────── */}
       <main className="flex-1 min-w-0 pt-14 lg:pt-0 overflow-auto">
         {children}
       </main>
