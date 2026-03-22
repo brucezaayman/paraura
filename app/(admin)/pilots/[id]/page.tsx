@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
@@ -52,7 +52,6 @@ function timeAgo(dateStr: string) {
 
 export default function PilotDetailPage() {
   const { id } = useParams() as { id: string }
-  const router = useRouter()
   const [pilot, setPilot] = useState<Pilot | null>(null)
   const [inquiries, setInquiries] = useState<Inquiry[]>([])
   const [notes, setNotes] = useState('')
@@ -71,10 +70,10 @@ export default function PilotDetailPage() {
           .order('created_at', { ascending: false }),
       ])
       if (pilotRes.data) {
-        setPilot(pilotRes.data as Pilot)
+        setPilot(pilotRes.data as unknown as Pilot)
         setNotes(pilotRes.data.notes ?? '')
       }
-      setInquiries((inqRes.data as Inquiry[]) ?? [])
+      setInquiries((inqRes.data as unknown as Inquiry[]) ?? [])
       setLoading(false)
     }
     load()
@@ -108,12 +107,10 @@ export default function PilotDetailPage() {
 
   return (
     <div className="p-6 lg:p-8 max-w-3xl">
-      {/* Breadcrumb */}
       <Link href="/pilots" className="text-stone-500 hover:text-white text-sm flex items-center gap-2 mb-8 transition-colors">
         ← All Pilots
       </Link>
 
-      {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-stone-800 flex items-center justify-center text-stone-300 text-lg font-medium uppercase">
@@ -131,10 +128,7 @@ export default function PilotDetailPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left column */}
         <div className="lg:col-span-2 space-y-5">
-
-          {/* Contact */}
           <div className="card p-5">
             <p className="eyebrow mb-4">Contact</p>
             <div className="space-y-3">
@@ -164,12 +158,8 @@ export default function PilotDetailPage() {
                 </div>
               )}
             </div>
-
             <div className="flex gap-3 mt-5 pt-5 border-t border-white/5">
-              <a
-                href={`mailto:${pilot.email}?subject=Following up from Paraura`}
-                className="btn-primary text-sm px-4 py-2"
-              >
+              <a href={`mailto:${pilot.email}?subject=Following up from Paraura`} className="btn-primary text-sm px-4 py-2">
                 Email
               </a>
               {pilot.whatsapp && (
@@ -185,13 +175,10 @@ export default function PilotDetailPage() {
             </div>
           </div>
 
-          {/* Notes */}
           <div className="card p-5">
             <div className="flex items-center justify-between mb-4">
               <p className="eyebrow">Notes</p>
-              {notesSaved && (
-                <span className="text-emerald-400 text-xs">Saved ✓</span>
-              )}
+              {notesSaved && <span className="text-emerald-400 text-xs">Saved ✓</span>}
             </div>
             <textarea
               rows={5}
@@ -209,22 +196,17 @@ export default function PilotDetailPage() {
             </button>
           </div>
 
-          {/* Inquiry history */}
           <div>
             <p className="eyebrow mb-4">Inquiry History</p>
             {inquiries.length === 0 ? (
-              <div className="card p-5 text-center text-stone-600 text-sm">
-                No inquiries recorded yet.
-              </div>
+              <div className="card p-5 text-center text-stone-600 text-sm">No inquiries recorded yet.</div>
             ) : (
               <div className="space-y-3">
                 {inquiries.map((inq) => (
                   <div key={inq.id} className="card p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-stone-500 text-xs uppercase tracking-widest">
-                          {inq.source}
-                        </span>
+                        <span className="text-stone-500 text-xs uppercase tracking-widest">{inq.source}</span>
                         <span className="text-stone-700">·</span>
                         <span className="text-stone-600 text-xs">{timeAgo(inq.created_at)}</span>
                       </div>
@@ -232,9 +214,7 @@ export default function PilotDetailPage() {
                         {inq.status}
                       </span>
                     </div>
-                    <p className="text-stone-400 text-sm leading-relaxed whitespace-pre-line">
-                      {inq.message}
-                    </p>
+                    <p className="text-stone-400 text-sm leading-relaxed whitespace-pre-line">{inq.message}</p>
                   </div>
                 ))}
               </div>
@@ -242,7 +222,6 @@ export default function PilotDetailPage() {
           </div>
         </div>
 
-        {/* Right column — pilot stats */}
         <div className="space-y-4">
           <div className="card p-5">
             <p className="eyebrow mb-4">Pilot Profile</p>

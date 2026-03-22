@@ -59,7 +59,7 @@ export default function DashboardPage() {
         totalInquiries: inquiriesRes.count ?? 0,
         newInquiries: newRes.count ?? 0,
       })
-      setRecent((recentRes.data as RecentInquiry[]) ?? [])
+      setRecent((recentRes.data as unknown as RecentInquiry[]) ?? [])
       setLoading(false)
     }
     load()
@@ -123,12 +123,9 @@ export default function DashboardPage() {
               href={`/leads?id=${inq.id}`}
               className="card flex items-center gap-4 p-4 hover:border-white/10 transition-all"
             >
-              {/* Avatar */}
               <div className="w-8 h-8 rounded-full bg-stone-800 flex items-center justify-center shrink-0 text-stone-400 text-xs font-medium uppercase">
                 {inq.pilots?.name?.charAt(0) ?? '?'}
               </div>
-
-              {/* Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-white text-sm font-medium">
@@ -138,8 +135,6 @@ export default function DashboardPage() {
                 </div>
                 <p className="text-stone-500 text-xs truncate">{inq.message}</p>
               </div>
-
-              {/* Meta */}
               <div className="flex flex-col items-end gap-1.5 shrink-0">
                 <span className={`badge border text-xs ${STATUS_STYLES[inq.status] ?? STATUS_STYLES.new}`}>
                   {inq.status}

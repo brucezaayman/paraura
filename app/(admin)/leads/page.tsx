@@ -48,6 +48,7 @@ export default function LeadsPage() {
 
   useEffect(() => {
     loadInquiries()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter])
 
   async function loadInquiries() {
@@ -62,16 +63,14 @@ export default function LeadsPage() {
     }
 
     const { data } = await query
-    setInquiries((data as Inquiry[]) ?? [])
+    setInquiries((data as unknown as Inquiry[]) ?? [])
     setLoading(false)
   }
 
   async function updateStatus(id: string, status: string) {
     setUpdatingId(id)
     await supabase.from('inquiries').update({ status }).eq('id', id)
-    setInquiries((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, status } : i))
-    )
+    setInquiries((prev) => prev.map((i) => (i.id === id ? { ...i, status } : i)))
     if (selected?.id === id) {
       setSelected((s) => s ? { ...s, status } : null)
     }
@@ -82,7 +81,7 @@ export default function LeadsPage() {
 
   return (
     <div className="flex h-[calc(100vh-56px)] lg:h-screen overflow-hidden">
-      {/* ── List panel ────────────────────────────────── */}
+      {/* List panel */}
       <div className={`flex flex-col ${selected ? 'hidden lg:flex' : 'flex'} w-full lg:w-80 xl:w-96 border-r border-white/5 shrink-0`}>
         <div className="px-4 py-4 border-b border-white/5">
           <h1 className="text-white text-base font-medium mb-3">Inquiries</h1>
@@ -117,7 +116,7 @@ export default function LeadsPage() {
               key={inq.id}
               onClick={() => setSelected(inq)}
               className={`w-full text-left px-4 py-4 border-b border-white/5 transition-colors ${
-                selected?.id === inq.id ? 'bg-white/5' : 'hover:bg-white/3'
+                selected?.id === inq.id ? 'bg-white/5' : 'hover:bg-white/5'
               }`}
             >
               <div className="flex items-start justify-between gap-3 mb-1">
@@ -139,13 +138,12 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      {/* ── Detail panel ──────────────────────────────── */}
+      {/* Detail panel */}
       <div className={`flex-1 overflow-y-auto ${!selected ? 'hidden lg:flex items-center justify-center' : 'flex flex-col'}`}>
         {!selected ? (
           <p className="text-stone-600 text-sm">Select an inquiry to view details</p>
         ) : (
           <div className="p-6 lg:p-8 max-w-2xl">
-            {/* Back (mobile) */}
             <button
               onClick={() => setSelected(null)}
               className="lg:hidden text-stone-500 hover:text-white text-sm flex items-center gap-2 mb-6 transition-colors"
@@ -153,7 +151,6 @@ export default function LeadsPage() {
               ← All inquiries
             </button>
 
-            {/* Header */}
             <div className="flex items-start justify-between mb-6">
               <div>
                 <h2 className="text-white text-xl font-light mb-1" style={{ fontFamily: 'var(--font-display)' }}>
@@ -176,7 +173,6 @@ export default function LeadsPage() {
               </span>
             </div>
 
-            {/* Inquiry details */}
             <div className="card p-5 mb-5">
               <div className="flex items-center gap-3 mb-4 text-xs text-stone-500">
                 <span className="uppercase tracking-widest">{SOURCE_LABELS[selected.source] ?? selected.source}</span>
@@ -186,7 +182,6 @@ export default function LeadsPage() {
               <p className="text-stone-300 text-sm leading-relaxed whitespace-pre-line">{selected.message}</p>
             </div>
 
-            {/* Actions */}
             <div className="flex flex-wrap gap-3 mb-6">
               {(['new', 'contacted', 'closed'] as const).map((s) => (
                 <button
@@ -204,7 +199,6 @@ export default function LeadsPage() {
               ))}
             </div>
 
-            {/* Quick contact */}
             <div className="flex flex-wrap gap-3">
               {selected.pilots?.email && (
                 <a
@@ -225,10 +219,7 @@ export default function LeadsPage() {
                 </a>
               )}
               {selected.pilot_id && (
-                <Link
-                  href={`/pilots/${selected.pilot_id}`}
-                  className="btn-ghost text-sm px-5 py-2.5"
-                >
+                <Link href={`/pilots/${selected.pilot_id}`} className="btn-ghost text-sm px-5 py-2.5">
                   View Pilot Profile →
                 </Link>
               )}
