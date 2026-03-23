@@ -14,14 +14,11 @@ function ParauraLogo() {
       aria-label="Paraura"
     >
       <defs>
-        {/* Oval cutout mask — the paraglider canopy scooped from the bottom of the wordmark */}
         <mask id="logo-cutaway">
           <rect width="180" height="44" fill="white" />
           <ellipse cx="88" cy="40" rx="72" ry="13" fill="black" />
         </mask>
       </defs>
-
-      {/* Wordmark in italic — sky blue, masked with canopy cutout */}
       <text
         x="4"
         y="32"
@@ -35,8 +32,6 @@ function ParauraLogo() {
       >
         paraura
       </text>
-
-      {/* Faint arc tracing the canopy edge — just visible */}
       <ellipse
         cx="88"
         cy="40"
@@ -83,6 +78,7 @@ export default function Nav() {
 
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/wings" className="nav-link">Wings</Link>
+            <Link href="/fly" className="nav-link">Fly With Us</Link>
             <Link href="/selector" className="nav-link">Find Your Wing</Link>
             <Link href="/advice" className="btn-primary text-sm px-5 py-2.5">
               Get Advice
@@ -104,6 +100,7 @@ export default function Nav() {
       <div className={`md:hidden transition-all duration-500 overflow-hidden ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
         <nav className="px-6 pb-8 pt-4 flex flex-col gap-1">
           <Link href="/wings" className="mobile-nav-link" onClick={() => setOpen(false)}>Wings</Link>
+          <Link href="/fly" className="mobile-nav-link" onClick={() => setOpen(false)}>Fly With Us</Link>
           <Link href="/selector" className="mobile-nav-link" onClick={() => setOpen(false)}>Find Your Wing</Link>
           <div className="mt-6">
             <Link href="/advice" className="btn-primary w-full text-center block" onClick={() => setOpen(false)}>
