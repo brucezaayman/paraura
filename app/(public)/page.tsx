@@ -5,7 +5,7 @@ import { placeholderProducts } from '@/lib/placeholder-products'
 export const metadata: Metadata = {
   title: 'Paraura — Skywalk Paragliders South Africa',
   description:
-    'South Africa\'s official Skywalk paraglider specialist. Expert guidance, premium wings, tandem flights and trusted advice.',
+    "South Africa's official Skywalk Paragliders importer and distributor. Expert guidance, premium wings, tandem flights and trusted advice.",
 }
 
 export default function HomePage() {
@@ -29,15 +29,25 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <p className="eyebrow mb-6">South Africa&apos;s Skywalk Specialist</p>
             <h1 className="display-xl text-white mb-8">
-              Find Your<br />
-              <em className="text-sky-300">Perfect Wing.</em>
+              Find your perfect<br />
+              <em className="text-sky-300">Skywalk Paragliders wing.</em>
             </h1>
             <p className="text-stone-300 text-lg font-light max-w-md mb-10 leading-relaxed">
               Expert guidance for pilots at every level. From your first tandem flight to your competition weapon.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/wings" className="btn-primary">Explore Wings</Link>
+              <Link href="/wings" className="btn-primary">Explore Skywalk Wings</Link>
               <Link href="/selector" className="btn-secondary">Find Your Wing</Link>
+            </div>
+            <div className="mt-6">
+              <a
+                href="https://www.skywalk.info"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone-500 hover:text-stone-300 text-xs tracking-widest uppercase transition-colors"
+              >
+                Official Skywalk Importer &amp; Distributor — South Africa ↗
+              </a>
             </div>
           </div>
         </div>
@@ -58,15 +68,23 @@ export default function HomePage() {
                 <em className="text-stone-400">An advisor.</em>
               </h2>
               <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
-                Paraura is South Africa&apos;s only dedicated Skywalk specialist. We don&apos;t stock hundreds of brands — we know one brand deeply, and we know how to match pilots to the right wing.
+                Paraura is South Africa&apos;s official Skywalk Paragliders importer and distributor. We don&apos;t stock hundreds of brands — we know one brand deeply, and we know how to match pilots to the right wing.
               </p>
-              <p className="text-stone-400 leading-relaxed">
+              <p className="text-stone-400 leading-relaxed mb-6">
                 Every recommendation is built on real flying knowledge, honest assessment of your goals, and a genuine interest in keeping you safe and progressing.
               </p>
+              <a
+                href="https://www.skywalk.info"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sky-400 hover:text-sky-300 text-sm transition-colors"
+              >
+                Visit skywalk.info ↗
+              </a>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Official', detail: 'Skywalk distributor for South Africa' },
+                { label: 'Official', detail: 'Skywalk Paragliders importer & distributor for South Africa' },
                 { label: 'Expert', detail: 'Pilot-to-pilot advice, not sales scripts' },
                 { label: 'Personalised', detail: 'Matched to your weight, level, and goals' },
                 { label: 'Trusted', detail: 'Long-term relationships over one-off sales' },
@@ -86,7 +104,7 @@ export default function HomePage() {
         <div className="section">
           <div className="flex items-end justify-between mb-12">
             <div>
-              <p className="eyebrow mb-3">Skywalk Range</p>
+              <p className="eyebrow mb-3">Skywalk Paragliders</p>
               <h2 className="display-md text-white">Featured Wings</h2>
             </div>
             <Link href="/wings" className="btn-ghost hidden sm:inline-flex">View all →</Link>
@@ -114,7 +132,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 sm:hidden">
-            <Link href="/wings" className="btn-secondary w-full text-center">View all wings</Link>
+            <Link href="/wings" className="btn-secondary w-full text-center">View all Skywalk wings</Link>
           </div>
         </div>
       </section>
@@ -126,10 +144,10 @@ export default function HomePage() {
             <p className="eyebrow mb-6">Wing Selector</p>
             <h2 className="display-lg text-white mb-6">
               Not sure which<br />
-              <em className="text-sky-300">wing is right?</em>
+              <em className="text-sky-300">Skywalk wing is right?</em>
             </h2>
             <p className="text-stone-300 text-lg font-light leading-relaxed mb-10">
-              Answer five quick questions about your weight, experience, and goals. Our selector will match you to the right Skywalk wing — and explain why.
+              Answer five quick questions about your weight, experience, and goals. Our selector will match you to the right Skywalk Paragliders wing — and explain why.
             </p>
             <Link href="/selector" className="btn-primary text-base px-8 py-4">Find Your Wing</Link>
             <p className="text-stone-600 text-sm mt-4">Takes about 2 minutes</p>
@@ -148,7 +166,7 @@ export default function HomePage() {
                 <em className="text-sky-300">before you buy?</em>
               </h2>
               <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
-                We can connect you with tandem flights across South Africa — Cape Town, Johannesburg, and the Wilderness. Or if you want to learn to fly solo, we&apos;ll point you to the right school.
+                We can connect you with tandem flights across South Africa — Cape Town, Johannesburg, and the Garden Route. Or if you want to learn to fly solo, we&apos;ll point you to the right school.
               </p>
               <p className="text-stone-400 leading-relaxed mb-8">
                 Our partner pilots are SAHPA certified, personally known to us, and chosen for the quality of the experience they deliver.
@@ -158,21 +176,9 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 gap-4">
               {[
-                {
-                  icon: '🪂',
-                  title: 'Tandem Flights',
-                  desc: 'No experience needed. Fly with a certified pilot above Cape Town, JHB or the Wilderness.',
-                },
-                {
-                  icon: '🎓',
-                  title: 'Learn to Fly',
-                  desc: 'We\'ll connect you with a trusted flight school and help you choose your first wing when you graduate.',
-                },
-                {
-                  icon: '📍',
-                  title: 'Flying Locations',
-                  desc: 'Cape Town · Johannesburg · Wilderness — each site with its own unique character and conditions.',
-                },
+                { icon: '🪂', title: 'Tandem Flights', desc: 'No experience needed. Fly with a certified pilot above Cape Town, JHB or the Garden Route.' },
+                { icon: '🎓', title: 'Learn to Fly', desc: "We'll connect you with a trusted flight school and help you choose your first Skywalk wing when you graduate." },
+                { icon: '📍', title: 'Flying Locations', desc: 'Cape Town · Johannesburg · Garden Route — each with its own unique character and conditions.' },
               ].map((item) => (
                 <div key={item.title} className="card p-5 flex gap-4 items-start">
                   <span className="text-2xl shrink-0">{item.icon}</span>
@@ -200,7 +206,7 @@ export default function HomePage() {
             {[
               { title: 'Where to Fly in South Africa', tag: 'Guide', desc: 'From the Cape Peninsula to the Drakensberg — the best paragliding sites and what to expect.' },
               { title: 'Understanding EN Ratings', tag: 'Education', desc: 'What EN-A, B, C, D actually mean — and why the right certification matters more than you think.' },
-              { title: 'Choosing Your First Wing', tag: 'Beginner', desc: 'A guide for student pilots ready to buy their first glider after graduating from school equipment.' },
+              { title: 'Choosing Your First Skywalk Wing', tag: 'Beginner', desc: 'A guide for student pilots ready to buy their first Skywalk Paragliders wing after graduating from school equipment.' },
             ].map((article) => (
               <div key={article.title} className="card p-6">
                 <span className="eyebrow mb-4 block">{article.tag}</span>

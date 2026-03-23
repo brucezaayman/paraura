@@ -2,49 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-
-function ParauraLogo() {
-  return (
-    <svg
-      width="180"
-      height="44"
-      viewBox="0 0 180 44"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Paraura"
-    >
-      <defs>
-        <mask id="logo-cutaway">
-          <rect width="180" height="44" fill="white" />
-          <ellipse cx="88" cy="40" rx="72" ry="13" fill="black" />
-        </mask>
-      </defs>
-      <text
-        x="4"
-        y="32"
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontSize="32"
-        fontWeight="400"
-        fontStyle="italic"
-        letterSpacing="1"
-        fill="#38bdf8"
-        mask="url(#logo-cutaway)"
-      >
-        paraura
-      </text>
-      <ellipse
-        cx="88"
-        cy="40"
-        rx="72"
-        ry="13"
-        stroke="#38bdf8"
-        strokeWidth="0.6"
-        fill="none"
-        opacity="0.35"
-      />
-    </svg>
-  )
-}
+import Image from 'next/image'
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
@@ -72,12 +30,21 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
 
-          <Link href="/" onClick={() => setOpen(false)}>
-            <ParauraLogo />
+          {/* Logo — using your actual artwork */}
+          <Link href="/" onClick={() => setOpen(false)} className="flex items-center">
+            <Image
+              src="/images/parauralogo.png"
+              alt="Paraura"
+              width={160}
+              height={48}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </Link>
 
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="/wings" className="nav-link">Wings</Link>
+            <Link href="/wings" className="nav-link">Skywalk Wings</Link>
             <Link href="/fly" className="nav-link">Fly With Us</Link>
             <Link href="/selector" className="nav-link">Find Your Wing</Link>
             <Link href="/advice" className="btn-primary text-sm px-5 py-2.5">
@@ -85,6 +52,7 @@ export default function Nav() {
             </Link>
           </nav>
 
+          {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg"
@@ -97,9 +65,10 @@ export default function Nav() {
         </div>
       </div>
 
+      {/* Mobile menu */}
       <div className={`md:hidden transition-all duration-500 overflow-hidden ${open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
         <nav className="px-6 pb-8 pt-4 flex flex-col gap-1">
-          <Link href="/wings" className="mobile-nav-link" onClick={() => setOpen(false)}>Wings</Link>
+          <Link href="/wings" className="mobile-nav-link" onClick={() => setOpen(false)}>Skywalk Wings</Link>
           <Link href="/fly" className="mobile-nav-link" onClick={() => setOpen(false)}>Fly With Us</Link>
           <Link href="/selector" className="mobile-nav-link" onClick={() => setOpen(false)}>Find Your Wing</Link>
           <div className="mt-6">

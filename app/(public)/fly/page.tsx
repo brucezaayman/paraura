@@ -85,11 +85,12 @@ const VIDEO_CATEGORIES = [
     ],
   },
   {
-    label: 'Competition Flying — Barberton',
-    desc: 'Competition flights on a Skywalk Cayenne 5 in the Barberton mountains.',
+    label: 'Competition Flying',
+    desc: 'Competition flights in the Barberton mountains on a Skywalk Cayenne 5, and XC flying on the Skywalk Poison in the UK.',
     videos: [
-      { id: 'La_sD-8maY0', title: 'Barberton Comp Flight 1' },
-      { id: 'wI4rglpSMqk', title: 'Barberton Comp Flight 2' },
+      { id: 'La_sD-8maY0', title: 'Barberton Comp — Cayenne 5' },
+      { id: 'wI4rglpSMqk', title: 'Barberton Comp — Cayenne 5' },
+      { id: 'ib5zNsuTVns', title: 'XC Flight UK — Skywalk Poison' },
     ],
   },
   {
