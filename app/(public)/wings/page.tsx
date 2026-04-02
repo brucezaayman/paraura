@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { placeholderProducts } from '@/lib/placeholder-products'
 import { WingLevel } from '@/types'
@@ -33,10 +34,10 @@ export default function WingsPage() {
       {/* Header */}
       <div className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="section">
-          <p className="eyebrow mb-4">Skywalk Range</p>
-          <h1 className="display-lg text-white mb-4">All Wings</h1>
+          <p className="eyebrow mb-4">Skywalk Paragliders</p>
+          <h1 className="display-lg text-white mb-4">Skywalk Wings</h1>
           <p className="text-stone-400 text-lg font-light max-w-md">
-            The complete Skywalk line-up, available in South Africa through Paraura.
+            The complete Skywalk Paragliders line-up, available in South Africa through Paraura — official importer &amp; distributor.
           </p>
         </div>
       </div>
@@ -67,32 +68,32 @@ export default function WingsPage() {
       <div className="py-16 lg:py-20">
         <div className="section">
           {filtered.length === 0 ? (
-            <div className="text-center py-20 text-stone-500">
-              No wings found for this filter.
-            </div>
+            <div className="text-center py-20 text-stone-500">No wings found for this filter.</div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filtered.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/wings/${product.slug}`}
-                  className="card group block"
-                >
+                <Link key={product.id} href={`/wings/${product.slug}`} className="card group block overflow-hidden">
                   {/* Image */}
                   <div className="aspect-[4/3] bg-gradient-to-br from-stone-800 to-stone-900 relative overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-16 h-16 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
-                      </svg>
-                    </div>
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <span className={`badge-${product.wing_level}`}>
-                        EN-{product.wing_level}
-                      </span>
+                    {product.images?.[0] ? (
+                      <Image
+                        src={product.images[0]}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <svg className="w-16 h-16 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
+                        </svg>
+                      </div>
+                    )}
+                    <div className="absolute top-3 left-3 flex gap-2 z-10">
+                      <span className={`badge-${product.wing_level}`}>EN-{product.wing_level}</span>
                       {product.is_lightweight && (
-                        <span className="badge bg-stone-800 text-stone-300 border border-stone-700">
-                          Lightweight
-                        </span>
+                        <span className="badge bg-stone-800/90 text-stone-300 border border-stone-700">Lightweight</span>
                       )}
                     </div>
                   </div>
@@ -111,7 +112,7 @@ export default function WingsPage() {
                     <div className="flex items-center gap-4 text-xs text-stone-500">
                       <span>{product.weight_ranges.length} sizes</span>
                       {product.specs.cells && <span>{product.specs.cells} cells</span>}
-                      {product.specs.glide_ratio && <span>Glide {product.specs.glide_ratio}</span>}
+                      {product.specs.aspect_ratio && <span>AR {product.specs.aspect_ratio}</span>}
                     </div>
                   </div>
                 </Link>
@@ -124,14 +125,10 @@ export default function WingsPage() {
       {/* Advice CTA */}
       <div className="border-t border-white/5 py-16">
         <div className="section text-center">
-          <p className="text-stone-400 mb-4">Not sure which wing is right for you?</p>
+          <p className="text-stone-400 mb-4">Not sure which Skywalk wing is right for you?</p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link href="/selector" className="btn-primary">
-              Use the Wing Selector
-            </Link>
-            <Link href="/advice" className="btn-secondary">
-              Ask Paraura directly
-            </Link>
+            <Link href="/selector" className="btn-primary">Use the Wing Selector</Link>
+            <Link href="/advice" className="btn-secondary">Ask Paraura directly</Link>
           </div>
         </div>
       </div>

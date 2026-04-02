@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { placeholderProducts } from '@/lib/placeholder-products'
@@ -65,10 +66,10 @@ export default function ProductPage({ params }: Props) {
   const product = placeholderProducts.find((p) => p.slug === params.slug)
   if (!product) notFound()
 
+  const heroImage = product.images?.[0] ?? null
   const goals = product.specs.flying_goal?.split(',').map((g: string) => g.trim()).filter(Boolean) ?? []
   const conditions = product.specs.conditions?.split(',').map((c: string) => c.trim()).filter(Boolean) ?? []
 
-  // Related wings — same or adjacent level, different slug
   const related = placeholderProducts
     .filter((p) => p.slug !== product.slug)
     .filter((p) => Math.abs(['A','B','C','D'].indexOf(p.wing_level) - ['A','B','C','D'].indexOf(product.wing_level)) <= 1)
@@ -79,28 +80,37 @@ export default function ProductPage({ params }: Props) {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="pt-24 pb-0 relative overflow-hidden">
         <div className="section">
-          {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-stone-500 text-sm mb-10 pt-8">
-            <Link href="/wings" className="hover:text-white transition-colors">Wings</Link>
+            <Link href="/wings" className="hover:text-white transition-colors">Skywalk Wings</Link>
             <span>/</span>
             <span className="text-stone-300">{product.name}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             {/* Image */}
-            <div className="aspect-square bg-gradient-to-br from-stone-800 to-stone-900 rounded-2xl flex items-center justify-center relative overflow-hidden">
-              <svg className="w-32 h-32 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
-              </svg>
-              {/* Level badge */}
-              <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
+            <div className="aspect-square rounded-2xl relative overflow-hidden bg-gradient-to-br from-stone-800 to-stone-900">
+              {heroImage ? (
+                <Image
+                  src={heroImage}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <svg className="w-32 h-32 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
+                  </svg>
+                </div>
+              )}
+              <div className="absolute top-4 left-4 flex gap-2 flex-wrap z-10">
                 <span className={`badge-${product.wing_level}`}>EN-{product.wing_level}</span>
                 {product.is_lightweight && (
                   <span className="badge bg-stone-800 text-stone-300 border border-stone-700">Lightweight</span>
                 )}
               </div>
-              {/* Image placeholder note */}
-              <p className="absolute bottom-4 text-stone-700 text-xs">Image coming soon</p>
             </div>
 
             {/* Info */}
@@ -111,7 +121,6 @@ export default function ProductPage({ params }: Props) {
                 {product.description}
               </p>
 
-              {/* Who it's for */}
               <div className="bg-stone-900/50 border border-white/5 rounded-xl p-5 mb-8">
                 <p className="eyebrow mb-3">Who this wing is for</p>
                 <p className="text-stone-400 text-sm mb-4">{LEVEL_DESCRIPTIONS[product.wing_level]}</p>
@@ -186,9 +195,7 @@ export default function ProductPage({ params }: Props) {
                   </div>
                 ))}
             </div>
-            <p className="text-stone-600 text-xs mt-3">
-              Specs shown for mid-range size. Full size table below.
-            </p>
+            <p className="text-stone-600 text-xs mt-3">Specs shown for mid-range size. Full size table below.</p>
           </div>
         </div>
       </section>
@@ -218,9 +225,7 @@ export default function ProductPage({ params }: Props) {
                 </div>
               ))}
             </div>
-            <p className="text-stone-600 text-xs mt-3">
-              Not sure which size? Tell us your all-up weight and we&apos;ll advise.
-            </p>
+            <p className="text-stone-600 text-xs mt-3">Not sure which size? Tell us your all-up weight and we&apos;ll advise.</p>
           </div>
         </div>
       </section>
@@ -232,12 +237,25 @@ export default function ProductPage({ params }: Props) {
             <p className="eyebrow mb-6">Also Consider</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
               {related.map((p) => (
-                <Link key={p.id} href={`/wings/${p.slug}`} className="card p-5 group">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-white font-medium group-hover:text-sky-300 transition-colors">{p.name}</h3>
-                    <span className={`badge-${p.wing_level}`}>EN-{p.wing_level}</span>
+                <Link key={p.id} href={`/wings/${p.slug}`} className="card group overflow-hidden">
+                  {p.images?.[0] && (
+                    <div className="aspect-[16/9] relative overflow-hidden">
+                      <Image
+                        src={p.images[0]}
+                        alt={p.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-white font-medium group-hover:text-sky-300 transition-colors">{p.name}</h3>
+                      <span className={`badge-${p.wing_level}`}>EN-{p.wing_level}</span>
+                    </div>
+                    <p className="text-stone-400 text-sm leading-relaxed line-clamp-2">{p.description}</p>
                   </div>
-                  <p className="text-stone-400 text-sm leading-relaxed line-clamp-2">{p.description}</p>
                 </Link>
               ))}
             </div>
