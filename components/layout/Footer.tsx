@@ -1,101 +1,110 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-stone-950 border-t border-white/5">
+    <footer style={{ backgroundColor: 'var(--color-night)', color: 'var(--color-cloud)' }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
 
           {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-8 h-8 rounded-full bg-sky-400 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
-                  <path
-                    d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-              <span className="text-white font-semibold tracking-widest uppercase text-sm">
-                Paraura
-              </span>
-            </div>
-            <p className="text-stone-400 text-sm leading-relaxed max-w-xs">
-              South Africa&apos;s official Skywalk paraglider specialist. Expert guidance for pilots at every level.
+          <div className="md:col-span-2">
+            <Image
+              src="/images/parauralogo.png"
+              alt="Paraura"
+              width={180}
+              height={54}
+              className="h-12 w-auto object-contain mb-5"
+            />
+            <p className="text-sm leading-relaxed max-w-xs mb-6" style={{ color: 'var(--color-thermal)' }}>
+              South Africa&apos;s official Skywalk Paragliders importer &amp; distributor.
+              Expert guidance for pilots at every level.
             </p>
-            <p className="text-stone-600 text-xs mt-4 tracking-widest uppercase">
+            <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'rgba(107,163,214,0.45)' }}>
               Catch the Breeze
             </p>
+
+            {/* Skywalk official distributor badge */}
+            <a
+              href="https://www.skywalk.info"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all"
+              style={{
+                border: '1px solid rgba(107,163,214,0.25)',
+                backgroundColor: 'rgba(107,163,214,0.06)',
+              }}
+            >
+              <div>
+                <p className="text-xs tracking-widest uppercase font-medium" style={{ color: 'var(--color-thermal)' }}>
+                  Official Skywalk Distributor
+                </p>
+                <p className="text-sm font-medium text-white">skywalk.info ↗</p>
+              </div>
+            </a>
           </div>
 
-          {/* Links */}
+          {/* Explore */}
           <div>
-            <h4 className="text-white text-xs tracking-widest uppercase mb-5 font-medium">
+            <h4 className="text-xs tracking-widest uppercase mb-5 font-medium" style={{ color: 'var(--color-thermal)' }}>
               Explore
             </h4>
             <ul className="space-y-3">
-              <li>
-                <Link href="/wings" className="text-stone-400 hover:text-white text-sm transition-colors">
-                  Wings
-                </Link>
-              </li>
-              <li>
-                <Link href="/selector" className="text-stone-400 hover:text-white text-sm transition-colors">
-                  Wing Selector
-                </Link>
-              </li>
-              <li>
-                <Link href="/advice" className="text-stone-400 hover:text-white text-sm transition-colors">
-                  Get Advice
-                </Link>
-              </li>
+              {[
+                { href: '/wings', label: 'Skywalk Wings' },
+                { href: '/fly', label: 'Fly With Us' },
+                { href: '/selector', label: 'Wing Selector' },
+                { href: '/articles', label: 'Articles' },
+                { href: '/advice', label: 'Get Advice' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm transition-colors hover:text-white"
+                    style={{ color: 'rgba(240,239,237,0.6)' }}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-white text-xs tracking-widest uppercase mb-5 font-medium">
+            <h4 className="text-xs tracking-widest uppercase mb-5 font-medium" style={{ color: 'var(--color-thermal)' }}>
               Contact
             </h4>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="mailto:info@paraura.com"
-                  className="text-stone-400 hover:text-white text-sm transition-colors"
-                >
+                <a href="mailto:info@paraura.com" className="text-sm transition-colors hover:text-white"
+                  style={{ color: 'rgba(240,239,237,0.6)' }}>
                   info@paraura.com
                 </a>
               </li>
               <li>
-                <a
-                  href="https://wa.me/27000000000"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-stone-400 hover:text-white text-sm transition-colors"
-                >
+                <a href="https://wa.me/27000000000" target="_blank" rel="noopener noreferrer"
+                  className="text-sm transition-colors hover:text-white"
+                  style={{ color: 'rgba(240,239,237,0.6)' }}>
                   WhatsApp
                 </a>
               </li>
               <li>
-                <span className="text-stone-500 text-sm">South Africa</span>
+                <a href="https://www.youtube.com/@parauraparagliding" target="_blank" rel="noopener noreferrer"
+                  className="text-sm transition-colors hover:text-white"
+                  style={{ color: 'rgba(240,239,237,0.6)' }}>
+                  YouTube
+                </a>
+              </li>
+              <li>
+                <span className="text-sm" style={{ color: 'rgba(240,239,237,0.35)' }}>South Africa</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-12 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-stone-600 text-xs">
-            © {new Date().getFullYear()} Paraura. Official Skywalk distributor, South Africa.
+        <div className="mt-12 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <p className="text-xs" style={{ color: 'rgba(240,239,237,0.3)' }}>
+            © {new Date().getFullYear()} Paraura. Official Skywalk Paragliders importer &amp; distributor, South Africa.
           </p>
-          <a
-            href="https://www.skywalk.info"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-stone-600 hover:text-stone-400 text-xs transition-colors tracking-wide"
-          >
-            skywalk.info ↗
-          </a>
         </div>
       </div>
     </footer>

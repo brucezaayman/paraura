@@ -1,9 +1,6 @@
 export type WingLevel = 'A' | 'B' | 'C' | 'D'
-
 export type FlyingGoal = 'leisure' | 'xc' | 'competition' | 'hike-and-fly'
-
 export type FlyingConditions = 'coastal' | 'thermal-inland' | 'mixed'
-
 export type LightweightPreference = 'yes' | 'no' | 'not-sure'
 
 export interface Product {
@@ -44,7 +41,7 @@ export interface Pilot {
 export interface Inquiry {
   id: string
   pilot_id: string
-  source: 'selector' | 'product' | 'homepage'
+  source: 'selector' | 'product' | 'homepage' | 'tandem' | 'learn-to-fly' | 'experience' | 'campaign'
   message: string
   status: 'new' | 'contacted' | 'closed'
   created_at: string
@@ -70,4 +67,51 @@ export interface ScoredProduct {
 export interface RecommendationResult {
   primary: ScoredProduct
   alternatives: ScoredProduct[]
+}
+
+// ── Posts ────────────────────────────────────────────────────
+export type PostCategory = 'guide' | 'education' | 'news' | 'pilot-story'
+export type PostStatus = 'draft' | 'published'
+
+export interface Post {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  content: string | null
+  cover_image: string | null
+  category: PostCategory
+  tags: string[]
+  status: PostStatus
+  published_at: string | null
+  created_at: string
+  updated_at: string
+}
+
+// ── Campaigns ────────────────────────────────────────────────
+export type CampaignStatus = 'draft' | 'active' | 'expired'
+
+export interface Campaign {
+  id: string
+  title: string
+  slug: string
+  tagline: string | null
+  description: string | null
+  content: string | null
+  cover_image: string | null
+  product_ids: string[]
+  valid_from: string | null
+  valid_until: string | null
+  status: CampaignStatus
+  is_listed: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface CampaignInterest {
+  id: string
+  campaign_id: string
+  pilot_id: string
+  message: string | null
+  created_at: string
 }

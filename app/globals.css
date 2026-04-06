@@ -2,17 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Fonts ─────────────────────────────────────────────── */
+/* ─── CSS Variables — Direction 1: Altitude ─────────────── */
 :root {
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --color-night:   #1A3A5C;
+  --color-blue:    #2B6CB0;
+  --color-thermal: #6BA3D6;
+  --color-cloud:   #F0EFED;
+  --color-carbon:  #2D2D2D;
+
+  --surface-light:      #F0EFED;
+  --surface-light-card: #E8E7E4;
+  --surface-dark:       #1A3A5C;
+  --surface-dark-card:  #1F4570;
+
+  --text-on-light:    #2D2D2D;
+  --text-muted-light: #6B7280;
+  --text-on-dark:     #F0EFED;
+  --text-muted-dark:  #6BA3D6;
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   html {
     font-family: var(--font-body);
@@ -22,7 +36,8 @@
   }
 
   body {
-    @apply bg-stone-950 text-white;
+    background-color: var(--surface-light);
+    color: var(--text-on-light);
   }
 
   h1, h2, h3 {
@@ -32,159 +47,243 @@
     line-height: 1.1;
   }
 
-  p {
-    line-height: 1.7;
-  }
+  p { line-height: 1.7; }
 }
 
 /* ─── Components ─────────────────────────────────────────── */
 @layer components {
 
-  /* Display headings */
+  /* ── Typography — reduced scale ── */
   .display-xl {
-    font-family: var(--font-display);
-    @apply text-5xl md:text-7xl lg:text-8xl font-light;
-    letter-spacing: -0.02em;
-    line-height: 1.0;
-  }
-
-  .display-lg {
     font-family: var(--font-display);
     @apply text-4xl md:text-5xl lg:text-6xl font-light;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
 
+  .display-lg {
+    font-family: var(--font-display);
+    @apply text-3xl md:text-4xl lg:text-5xl font-light;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
   .display-md {
     font-family: var(--font-display);
-    @apply text-3xl md:text-4xl font-light;
+    @apply text-2xl md:text-3xl font-light;
     letter-spacing: -0.01em;
-    line-height: 1.1;
+    line-height: 1.15;
   }
 
-  /* Eyebrow label */
+  .display-sm {
+    font-family: var(--font-display);
+    @apply text-xl md:text-2xl font-light;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  /* ── Eyebrow ── */
   .eyebrow {
-    @apply text-xs tracking-widest uppercase text-stone-400 font-medium;
+    @apply text-xs tracking-widest uppercase font-medium;
     font-family: var(--font-body);
+    color: var(--color-blue);
   }
 
-  /* Buttons */
+  .eyebrow-dark {
+    @apply text-xs tracking-widest uppercase font-medium;
+    font-family: var(--font-body);
+    color: var(--color-thermal);
+  }
+
+  /* ── Section container ── */
+  .section {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    @apply rounded-2xl overflow-hidden transition-all duration-300;
+    @apply hover:shadow-md;
+  }
+
+  .card-dark {
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    @apply rounded-2xl overflow-hidden transition-all duration-300;
+  }
+
+  /* ── Buttons ── */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2;
-    @apply bg-white text-stone-950 font-medium;
-    @apply px-7 py-3.5 rounded-full;
-    @apply text-sm tracking-wide;
+    background-color: var(--color-blue);
+    color: white;
+    @apply font-medium px-7 py-3.5 rounded-full text-sm tracking-wide;
     @apply transition-all duration-200;
-    @apply hover:bg-sky-100 hover:scale-[1.02] active:scale-[0.98];
+    @apply hover:brightness-110 hover:scale-[1.02] active:scale-[0.98];
     font-family: var(--font-body);
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2;
-    @apply border border-white/20 text-white font-medium;
-    @apply px-7 py-3.5 rounded-full;
-    @apply text-sm tracking-wide;
-    @apply transition-all duration-200;
-    @apply hover:border-white/60 hover:bg-white/5 active:scale-[0.98];
+    border: 1.5px solid var(--color-blue);
+    color: var(--color-blue);
+    @apply font-medium px-7 py-3.5 rounded-full text-sm tracking-wide;
+    @apply transition-all duration-200 bg-transparent;
+    @apply hover:brightness-110 active:scale-[0.98];
+    font-family: var(--font-body);
+  }
+
+  .btn-secondary-dark {
+    @apply inline-flex items-center justify-center gap-2;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: white;
+    @apply font-medium px-7 py-3.5 rounded-full text-sm tracking-wide;
+    @apply transition-all duration-200 bg-transparent;
+    @apply hover:border-white/70 hover:bg-white/5 active:scale-[0.98];
     font-family: var(--font-body);
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2;
-    @apply text-stone-400 font-medium;
-    @apply px-4 py-2.5 rounded-full;
-    @apply text-sm tracking-wide;
+    color: var(--color-blue);
+    @apply font-medium px-4 py-2.5 rounded-full text-sm tracking-wide;
     @apply transition-all duration-200;
-    @apply hover:text-white hover:bg-white/5;
     font-family: var(--font-body);
   }
 
-  /* Wing level badges */
+  /* ── Wing level badges ── */
   .badge {
     @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium tracking-wide;
     font-family: var(--font-body);
   }
 
   .badge-A {
-    @apply badge bg-emerald-950/60 text-emerald-400 border border-emerald-900;
+    @apply badge bg-emerald-50 text-emerald-700 border border-emerald-200;
   }
 
   .badge-B {
-    @apply badge bg-sky-950/60 text-sky-400 border border-sky-900;
+    @apply badge border;
+    background-color: #EBF4FF;
+    color: #2B6CB0;
+    border-color: #BEE3F8;
   }
 
   .badge-C {
-    @apply badge bg-amber-950/60 text-amber-400 border border-amber-900;
+    @apply badge bg-amber-50 text-amber-700 border border-amber-200;
   }
 
   .badge-D {
-    @apply badge bg-red-950/60 text-red-400 border border-red-900;
+    @apply badge bg-red-50 text-red-700 border border-red-200;
   }
 
-  /* Nav links */
+  /* ── Nav links ── */
   .nav-link {
-    @apply text-stone-300 hover:text-white text-sm font-medium transition-colors duration-200;
+    @apply text-sm font-medium transition-colors duration-200;
     font-family: var(--font-body);
   }
 
   .mobile-nav-link {
-    @apply block text-2xl font-light py-4 border-b border-white/5 text-stone-200 hover:text-white transition-colors;
+    @apply block text-2xl font-light py-4 border-b transition-colors;
     font-family: var(--font-display);
+    border-color: rgba(0,0,0,0.06);
+    color: var(--color-carbon);
   }
 
-  /* Section container */
-  .section {
-    @apply max-w-7xl mx-auto px-6 lg:px-8;
-  }
-
-  /* Card */
-  .card {
-    @apply bg-stone-900/50 border border-white/5 rounded-2xl overflow-hidden;
-    @apply transition-all duration-300;
-    @apply hover:border-white/10 hover:bg-stone-900/80;
-  }
-
-  /* Spec table row */
-  .spec-row {
-    @apply flex items-start justify-between py-3 border-b border-white/5 last:border-0;
-  }
-
-  /* Step indicator */
-  .step-dot {
-    @apply w-2 h-2 rounded-full transition-all duration-300;
-  }
-
-  /* Form input */
+  /* ── Forms ── */
   .input {
-    @apply w-full bg-stone-900/50 border border-white/10 rounded-xl px-4 py-3.5;
-    @apply text-white placeholder:text-stone-600;
-    @apply focus:outline-none focus:border-sky-400/50 focus:ring-1 focus:ring-sky-400/20;
-    @apply transition-all duration-200;
+    @apply w-full rounded-xl px-4 py-3.5;
+    @apply focus:outline-none transition-all duration-200;
+    background-color: white;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    color: var(--color-carbon);
     font-family: var(--font-body);
   }
-
-  /* Textarea */
-  .textarea {
-    @apply input resize-none;
+  .input::placeholder { color: #9CA3AF; }
+  .input:focus {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 0 3px rgba(43,108,176,0.12);
   }
 
-  /* Select */
+  .textarea { @apply input resize-none; }
+
   .select {
     @apply input appearance-none cursor-pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a8a29e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 2.5rem;
   }
 
-  /* Label */
   .label {
-    @apply text-xs tracking-widest uppercase text-stone-400 font-medium mb-2 block;
+    @apply text-xs tracking-widest uppercase font-medium mb-2 block;
     font-family: var(--font-body);
+    color: var(--color-blue);
   }
 
-  /* Divider */
-  .divider {
-    @apply border-t border-white/5;
+  .input-dark {
+    @apply w-full rounded-xl px-4 py-3.5;
+    @apply focus:outline-none transition-all duration-200;
+    background-color: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    color: white;
+    font-family: var(--font-body);
+  }
+  .input-dark::placeholder { color: rgba(107,163,214,0.6); }
+  .input-dark:focus {
+    border-color: var(--color-thermal);
+    box-shadow: 0 0 0 3px rgba(107,163,214,0.15);
+  }
+
+  /* ── Spec table ── */
+  .spec-row {
+    @apply flex items-start justify-between py-3 border-b last:border-0;
+    border-color: rgba(0,0,0,0.06);
+  }
+
+  /* ── Step dot ── */
+  .step-dot {
+    @apply w-2 h-2 rounded-full transition-all duration-300;
+  }
+
+  /* ── Dividers ── */
+  .divider { border-top: 1px solid rgba(0,0,0,0.07); }
+  .divider-dark { border-top: 1px solid rgba(255,255,255,0.08); }
+
+  /* ── Article prose ── */
+  .prose-paraura {
+    color: var(--color-carbon);
+    font-family: var(--font-body);
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+  .prose-paraura h2 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 300;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-night);
+  }
+  .prose-paraura h3 {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-night);
+  }
+  .prose-paraura p { margin-bottom: 1.25rem; }
+  .prose-paraura a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 2px; }
+  .prose-paraura ul, .prose-paraura ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+  .prose-paraura li { margin-bottom: 0.4rem; }
+  .prose-paraura strong { font-weight: 500; color: var(--color-night); }
+  .prose-paraura blockquote {
+    border-left: 3px solid var(--color-blue);
+    padding-left: 1.25rem;
+    color: #4B5563;
+    font-style: italic;
+    margin: 1.5rem 0;
   }
 }

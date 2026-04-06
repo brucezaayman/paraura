@@ -13,11 +13,13 @@ const config: Config = {
         body: ['DM Sans', 'system-ui', 'sans-serif'],
       },
       colors: {
-        sky: {
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          900: '#0c4a6e',
-          950: '#082f49',
+        // Direction 1 — Altitude palette
+        brand: {
+          night:   '#1A3A5C',
+          blue:    '#2B6CB0',
+          thermal: '#6BA3D6',
+          cloud:   '#F0EFED',
+          carbon:  '#2D2D2D',
         },
       },
     },

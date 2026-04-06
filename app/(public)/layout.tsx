@@ -5,7 +5,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
   return (
     <>
       <Nav />
-      <main className="min-h-screen">
+      <main style={{ minHeight: '100vh', backgroundColor: 'var(--surface-light)' }}>
         {children}
       </main>
       <Footer />
