@@ -3,7 +3,7 @@ import { Product } from '@/types'
 /**
  * Skywalk product data — sourced from skywalk.info and verified reviews
  * Descriptions written for the South African market context
- * Images: hero.jpg in each product folder under public/images/
+ * Images: hero.jpg/hero.jpeg in each product folder under public/images/
  */
 export const placeholderProducts: Product[] = [
   {
@@ -54,7 +54,7 @@ export const placeholderProducts: Product[] = [
       flying_goal: 'leisure,xc',
       conditions: 'coastal,thermal-inland,mixed',
     },
-    images: [],
+    images: ['/images/TEQUILA6/hero.jpeg'],
     wing_level: 'B',
     weight_ranges: [
       { size: '75', min_weight: 55, max_weight: 75 },
@@ -175,7 +175,7 @@ export const placeholderProducts: Product[] = [
       flying_goal: 'competition,xc',
       conditions: 'thermal-inland,mixed',
     },
-    images: [],
+    images: ['/images/POISON/hero.jpeg'],
     wing_level: 'D',
     weight_ranges: [
       { size: 'XS', min_weight: 65, max_weight: 85 },

@@ -12,9 +12,9 @@ export default function Footer() {
             <Image
               src="/images/parauralogo.png"
               alt="Paraura"
-              width={180}
-              height={54}
-              className="h-12 w-auto object-contain mb-5"
+              width={200}
+              height={60}
+              className="h-14 w-auto object-contain mb-5"
             />
             <p className="text-sm leading-relaxed max-w-xs mb-6" style={{ color: 'var(--color-thermal)' }}>
               South Africa&apos;s official Skywalk Paragliders importer &amp; distributor.
@@ -29,12 +29,16 @@ export default function Footer() {
               href="https://www.skywalk.info"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all"
+              className="inline-flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:opacity-80"
               style={{
-                border: '1px solid rgba(107,163,214,0.25)',
-                backgroundColor: 'rgba(107,163,214,0.06)',
+                border: '1px solid rgba(107,163,214,0.3)',
+                backgroundColor: 'rgba(107,163,214,0.08)',
               }}
             >
+              <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 shrink-0" style={{ color: 'var(--color-thermal)' }}>
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
               <div>
                 <p className="text-xs tracking-widest uppercase font-medium" style={{ color: 'var(--color-thermal)' }}>
                   Official Skywalk Distributor
@@ -54,7 +58,7 @@ export default function Footer() {
                 { href: '/wings', label: 'Skywalk Wings' },
                 { href: '/fly', label: 'Fly With Us' },
                 { href: '/selector', label: 'Wing Selector' },
-                { href: '/articles', label: 'Articles' },
+                { href: '/insights', label: 'Insights' },
                 { href: '/advice', label: 'Get Advice' },
               ].map((link) => (
                 <li key={link.href}>
@@ -92,9 +96,6 @@ export default function Footer() {
                   style={{ color: 'rgba(240,239,237,0.6)' }}>
                   YouTube
                 </a>
-              </li>
-              <li>
-                <span className="text-sm" style={{ color: 'rgba(240,239,237,0.35)' }}>South Africa</span>
               </li>
             </ul>
           </div>

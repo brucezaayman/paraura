@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { placeholderProducts } from '@/lib/placeholder-products'
 
@@ -13,75 +14,92 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── 1. HERO ──────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-end pb-20 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-950 via-slate-900 to-stone-950" />
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-800/30 via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-stone-950 via-stone-950/80 to-transparent" />
-          <div
-            className="absolute top-0 right-1/4 w-96 h-96 rounded-full opacity-20"
-            style={{ background: 'radial-gradient(circle, #7dd3fc 0%, transparent 70%)' }}
-          />
-        </div>
+      {/* ── 1. HERO — night sky, full height ─────────────────── */}
+      <section
+        className="relative flex items-end overflow-hidden"
+        style={{
+          minHeight: '90vh',
+          paddingBottom: '5rem',
+          backgroundColor: 'var(--color-night)',
+        }}
+      >
+        {/* Atmospheric gradient overlay */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at 65% 30%, rgba(43,108,176,0.35) 0%, transparent 60%)',
+        }} />
+        <div className="absolute bottom-0 left-0 right-0 h-32"
+          style={{ background: 'linear-gradient(to top, var(--color-night), transparent)' }} />
 
-        <div className="section relative z-20 w-full">
-          <div className="max-w-3xl">
-            <p className="eyebrow mb-6">South Africa&apos;s Skywalk Specialist</p>
-            <h1 className="display-xl text-white mb-8">
+        {/* Hero image — when supplied, sits behind gradient */}
+        {/* Drop hero-bg.jpg into public/images/ to activate */}
+
+        <div className="section relative z-10 w-full">
+          <div className="max-w-2xl">
+            <p className="eyebrow-dark mb-5">South Africa&apos;s Skywalk Specialist</p>
+            <h1 className="display-xl mb-6" style={{ color: 'white' }}>
               Find your perfect<br />
-              <em className="text-sky-300">Skywalk Paragliders wing.</em>
+              <em style={{ color: 'var(--color-thermal)' }}>Skywalk Paragliders wing.</em>
             </h1>
-            <p className="text-stone-300 text-lg font-light max-w-md mb-10 leading-relaxed">
+            <p className="text-lg font-light max-w-md mb-10 leading-relaxed" style={{ color: 'rgba(240,239,237,0.75)' }}>
               Expert guidance for pilots at every level. From your first tandem flight to your competition weapon.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/wings" className="btn-primary">Explore Skywalk Wings</Link>
-              <Link href="/selector" className="btn-secondary">Find Your Wing</Link>
+              <Link href="/selector" className="btn-secondary-dark">Find Your Wing</Link>
             </div>
-            <div className="mt-6">
-              <a
-                href="https://www.skywalk.info"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-stone-500 hover:text-stone-300 text-xs tracking-widest uppercase transition-colors"
-              >
+            <div className="mt-8">
+              <a href="https://www.skywalk.info" target="_blank" rel="noopener noreferrer"
+                className="text-xs tracking-widest uppercase transition-colors"
+                style={{ color: 'rgba(107,163,214,0.6)' }}
+                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = 'var(--color-thermal)')}
+                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = 'rgba(107,163,214,0.6)')}>
                 Official Skywalk Importer &amp; Distributor — South Africa ↗
               </a>
             </div>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce opacity-40">
-          <div className="w-px h-8 bg-white" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce opacity-30">
+          <div className="w-px h-8" style={{ backgroundColor: 'white' }} />
         </div>
       </section>
 
-      {/* ── 2. TRUST ─────────────────────────────────────────── */}
-      <section className="py-24 lg:py-32">
+      {/* ── 2. TRUST — light section ─────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div>
-              <p className="eyebrow mb-6">Why Paraura</p>
-              <h2 className="display-lg text-white mb-6">
+              <p className="eyebrow mb-5">Why Paraura</p>
+              <h2 className="display-lg mb-6" style={{ color: 'var(--color-night)' }}>
                 Not a store.<br />
-                <em className="text-stone-400">An advisor.</em>
+                <em style={{ color: 'var(--color-blue)' }}>An advisor.</em>
               </h2>
-              <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
+              <p className="text-lg font-light leading-relaxed mb-5" style={{ color: 'var(--color-carbon)' }}>
                 Paraura is South Africa&apos;s official Skywalk Paragliders importer and distributor. We don&apos;t stock hundreds of brands — we know one brand deeply, and we know how to match pilots to the right wing.
               </p>
-              <p className="text-stone-400 leading-relaxed mb-6">
+              <p className="leading-relaxed mb-8" style={{ color: 'var(--text-muted-light)' }}>
                 Every recommendation is built on real flying knowledge, honest assessment of your goals, and a genuine interest in keeping you safe and progressing.
               </p>
-              <a
-                href="https://www.skywalk.info"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sky-400 hover:text-sky-300 text-sm transition-colors"
-              >
-                Visit skywalk.info ↗
+
+              {/* Skywalk official badge */}
+              <a href="https://www.skywalk.info" target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-5 py-3 rounded-xl transition-all hover:shadow-md"
+                style={{ border: '1.5px solid rgba(43,108,176,0.25)', backgroundColor: 'rgba(43,108,176,0.04)' }}>
+                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 shrink-0" style={{ color: 'var(--color-blue)' }}>
+                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <div>
+                  <p className="text-xs tracking-widest uppercase font-medium" style={{ color: 'var(--color-blue)' }}>
+                    Official Skywalk Paragliders
+                  </p>
+                  <p className="text-sm font-medium" style={{ color: 'var(--color-night)' }}>
+                    Importer &amp; Distributor — South Africa
+                  </p>
+                </div>
               </a>
             </div>
+
             <div className="grid grid-cols-2 gap-4">
               {[
                 { label: 'Official', detail: 'Skywalk Paragliders importer & distributor for South Africa' },
@@ -90,8 +108,12 @@ export default function HomePage() {
                 { label: 'Trusted', detail: 'Long-term relationships over one-off sales' },
               ].map((item) => (
                 <div key={item.label} className="card p-5">
-                  <p className="text-sky-400 text-xs tracking-widest uppercase font-medium mb-2">{item.label}</p>
-                  <p className="text-stone-300 text-sm leading-relaxed">{item.detail}</p>
+                  <p className="text-xs tracking-widest uppercase font-medium mb-2" style={{ color: 'var(--color-blue)' }}>
+                    {item.label}
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--color-carbon)' }}>
+                    {item.detail}
+                  </p>
                 </div>
               ))}
             </div>
@@ -99,33 +121,45 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3. FEATURED WINGS ────────────────────────────────── */}
-      <section className="py-24 lg:py-32 border-t border-white/5">
+      {/* ── 3. FEATURED WINGS — alt light ────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light-card)' }}>
         <div className="section">
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="eyebrow mb-3">Skywalk Paragliders</p>
-              <h2 className="display-md text-white">Featured Wings</h2>
+              <h2 className="display-md" style={{ color: 'var(--color-night)' }}>Featured Wings</h2>
             </div>
             <Link href="/wings" className="btn-ghost hidden sm:inline-flex">View all →</Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featured.map((product) => (
-              <Link key={product.id} href={`/wings/${product.slug}`} className="card group block">
-                <div className="aspect-[4/3] bg-gradient-to-br from-stone-800 to-stone-900 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
-                    </svg>
-                  </div>
-                  <div className="absolute top-3 left-3">
+              <Link key={product.id} href={`/wings/${product.slug}`} className="card group block overflow-hidden">
+                <div className="aspect-[4/3] relative overflow-hidden"
+                  style={{ backgroundColor: 'var(--color-night)' }}>
+                  {product.images?.[0] ? (
+                    <Image src={product.images[0]} alt={product.name} fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 33vw" />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                      <svg className="w-16 h-16" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
+                      </svg>
+                    </div>
+                  )}
+                  <div className="absolute top-3 left-3 z-10">
                     <span className={`badge-${product.wing_level}`}>EN-{product.wing_level}</span>
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-white font-medium mb-1 group-hover:text-sky-300 transition-colors">{product.name}</h3>
-                  <p className="text-stone-400 text-sm leading-relaxed line-clamp-2">{product.description}</p>
+                  <h3 className="font-medium mb-1 group-hover:text-brand-blue transition-colors"
+                    style={{ color: 'var(--color-night)' }}>
+                    {product.name}
+                  </h3>
+                  <p className="text-sm leading-relaxed line-clamp-2" style={{ color: 'var(--text-muted-light)' }}>
+                    {product.description}
+                  </p>
                 </div>
               </Link>
             ))}
@@ -137,38 +171,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. WING SELECTOR ─────────────────────────────────── */}
-      <section className="py-24 lg:py-32 border-t border-white/5 bg-stone-900/30">
+      {/* ── 4. WING SELECTOR — night blue ────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
           <div className="max-w-2xl mx-auto text-center">
-            <p className="eyebrow mb-6">Wing Selector</p>
-            <h2 className="display-lg text-white mb-6">
+            <p className="eyebrow-dark mb-5">Wing Selector</p>
+            <h2 className="display-lg mb-6" style={{ color: 'white' }}>
               Not sure which<br />
-              <em className="text-sky-300">Skywalk wing is right?</em>
+              <em style={{ color: 'var(--color-thermal)' }}>Skywalk wing is right?</em>
             </h2>
-            <p className="text-stone-300 text-lg font-light leading-relaxed mb-10">
+            <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(240,239,237,0.7)' }}>
               Answer five quick questions about your weight, experience, and goals. Our selector will match you to the right Skywalk Paragliders wing — and explain why.
             </p>
             <Link href="/selector" className="btn-primary text-base px-8 py-4">Find Your Wing</Link>
-            <p className="text-stone-600 text-sm mt-4">Takes about 2 minutes</p>
+            <p className="text-sm mt-4" style={{ color: 'rgba(107,163,214,0.5)' }}>Takes about 2 minutes</p>
           </div>
         </div>
       </section>
 
-      {/* ── 5. FLY WITH PARAURA ──────────────────────────────── */}
-      <section className="py-24 lg:py-32 border-t border-white/5">
+      {/* ── 5. FLY WITH PARAURA — light ──────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="eyebrow mb-4">Experiences</p>
-              <h2 className="display-lg text-white mb-6">
+              <h2 className="display-lg mb-6" style={{ color: 'var(--color-night)' }}>
                 Want to fly<br />
-                <em className="text-sky-300">before you buy?</em>
+                <em style={{ color: 'var(--color-blue)' }}>before you buy?</em>
               </h2>
-              <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
+              <p className="text-lg font-light leading-relaxed mb-6" style={{ color: 'var(--color-carbon)' }}>
                 We can connect you with tandem flights across South Africa — Cape Town, Johannesburg, and the Garden Route. Or if you want to learn to fly solo, we&apos;ll point you to the right school.
               </p>
-              <p className="text-stone-400 leading-relaxed mb-8">
+              <p className="leading-relaxed mb-8" style={{ color: 'var(--text-muted-light)' }}>
                 Our partner pilots are SAHPA certified, personally known to us, and chosen for the quality of the experience they deliver.
               </p>
               <Link href="/fly" className="btn-primary">Explore Experiences</Link>
@@ -183,8 +217,8 @@ export default function HomePage() {
                 <div key={item.title} className="card p-5 flex gap-4 items-start">
                   <span className="text-2xl shrink-0">{item.icon}</span>
                   <div>
-                    <p className="text-white font-medium mb-1">{item.title}</p>
-                    <p className="text-stone-400 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="font-medium mb-1" style={{ color: 'var(--color-night)' }}>{item.title}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted-light)' }}>{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -193,14 +227,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 6. CONTENT / SEO ─────────────────────────────────── */}
-      <section className="py-24 lg:py-32 border-t border-white/5">
+      {/* ── 6. INSIGHTS — alt light ──────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light-card)' }}>
         <div className="section">
           <div className="flex items-end justify-between mb-12">
             <div>
               <p className="eyebrow mb-3">Flying in South Africa</p>
-              <h2 className="display-md text-white">Know the Sky</h2>
+              <h2 className="display-md" style={{ color: 'var(--color-night)' }}>Insights</h2>
             </div>
+            <Link href="/insights" className="btn-ghost hidden sm:inline-flex">View all →</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -209,27 +244,29 @@ export default function HomePage() {
               { title: 'Choosing Your First Skywalk Wing', tag: 'Beginner', desc: 'A guide for student pilots ready to buy their first Skywalk Paragliders wing after graduating from school equipment.' },
             ].map((article) => (
               <div key={article.title} className="card p-6">
-                <span className="eyebrow mb-4 block">{article.tag}</span>
-                <h3 className="text-white font-light text-lg mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)' }}>
+                <span className="text-xs tracking-widest uppercase font-medium mb-4 block" style={{ color: 'var(--color-blue)' }}>
+                  {article.tag}
+                </span>
+                <h3 className="font-light text-lg mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-night)' }}>
                   {article.title}
                 </h3>
-                <p className="text-stone-400 text-sm leading-relaxed">{article.desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted-light)' }}>{article.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 7. ADVICE CTA ────────────────────────────────────── */}
-      <section className="py-24 lg:py-32 border-t border-white/5">
+      {/* ── 7. ADVICE CTA — night blue ───────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
           <div className="max-w-2xl mx-auto text-center">
-            <p className="eyebrow mb-6">Paraura Advisory</p>
-            <h2 className="display-lg text-white mb-6">
+            <p className="eyebrow-dark mb-5">Paraura Advisory</p>
+            <h2 className="display-lg mb-6" style={{ color: 'white' }}>
               Still unsure?<br />
-              <em className="text-stone-400">Let&apos;s talk.</em>
+              <em style={{ color: 'var(--color-thermal)' }}>Let&apos;s talk.</em>
             </h2>
-            <p className="text-stone-300 text-lg font-light leading-relaxed mb-10">
+            <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(240,239,237,0.7)' }}>
               The selector is a starting point. For a real conversation about your flying goals, get in touch — we respond personally, via email or WhatsApp.
             </p>
             <Link href="/advice" className="btn-primary text-base px-8 py-4">Get Expert Advice</Link>

@@ -41,7 +41,7 @@ export default function AdminPostsPage() {
         <div>
           <h1 className="text-2xl font-light mb-1"
             style={{ fontFamily: 'var(--font-display)', color: 'var(--color-night)' }}>
-            Articles
+            Insights
           </h1>
           <p className="text-sm" style={{ color: 'var(--text-muted-light)' }}>Manage posts and guides</p>
         </div>
@@ -83,7 +83,7 @@ export default function AdminPostsPage() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {post.status === 'published' && (
-                  <a href={`/articles/${post.slug}`} target="_blank" rel="noopener noreferrer"
+                  <a href={`/insights/${post.slug}`} target="_blank" rel="noopener noreferrer"
                     className="text-xs px-3 py-1.5 rounded-lg"
                     style={{ color: 'var(--color-blue)', backgroundColor: 'rgba(43,108,176,0.06)' }}>
                     View ↗

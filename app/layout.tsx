@@ -15,6 +15,12 @@ export const metadata: Metadata = {
     'XC flying South Africa',
     'paraglider importer distributor',
   ],
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.svg',
+  },
   openGraph: {
     title: 'Paraura — Skywalk Paragliders South Africa',
     description: "Expert guidance. Premium equipment. South Africa's official Skywalk importer & distributor.",
@@ -30,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
