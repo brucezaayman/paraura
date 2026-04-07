@@ -14,24 +14,16 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── 1. HERO — night sky, full height ─────────────────── */}
+      {/* ── 1. HERO — night sky ───────────────────────────────── */}
       <section
         className="relative flex items-end overflow-hidden"
-        style={{
-          minHeight: '90vh',
-          paddingBottom: '5rem',
-          backgroundColor: 'var(--color-night)',
-        }}
+        style={{ minHeight: '90vh', paddingBottom: '5rem', backgroundColor: 'var(--color-night)' }}
       >
-        {/* Atmospheric gradient overlay */}
         <div className="absolute inset-0" style={{
           background: 'radial-gradient(ellipse at 65% 30%, rgba(43,108,176,0.35) 0%, transparent 60%)',
         }} />
         <div className="absolute bottom-0 left-0 right-0 h-32"
           style={{ background: 'linear-gradient(to top, var(--color-night), transparent)' }} />
-
-        {/* Hero image — when supplied, sits behind gradient */}
-        {/* Drop hero-bg.jpg into public/images/ to activate */}
 
         <div className="section relative z-10 w-full">
           <div className="max-w-2xl">
@@ -40,7 +32,8 @@ export default function HomePage() {
               Find your perfect<br />
               <em style={{ color: 'var(--color-thermal)' }}>Skywalk Paragliders wing.</em>
             </h1>
-            <p className="text-lg font-light max-w-md mb-10 leading-relaxed" style={{ color: 'rgba(240,239,237,0.75)' }}>
+            <p className="text-lg font-light max-w-md mb-10 leading-relaxed"
+              style={{ color: 'rgba(240,239,237,0.75)' }}>
               Expert guidance for pilots at every level. From your first tandem flight to your competition weapon.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -49,10 +42,8 @@ export default function HomePage() {
             </div>
             <div className="mt-8">
               <a href="https://www.skywalk.info" target="_blank" rel="noopener noreferrer"
-                className="text-xs tracking-widest uppercase transition-colors"
-                style={{ color: 'rgba(107,163,214,0.6)' }}
-                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = 'var(--color-thermal)')}
-                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = 'rgba(107,163,214,0.6)')}>
+                className="text-xs tracking-widest uppercase transition-colors hover:opacity-80"
+                style={{ color: 'rgba(107,163,214,0.6)' }}>
                 Official Skywalk Importer &amp; Distributor — South Africa ↗
               </a>
             </div>
@@ -64,7 +55,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 2. TRUST — light section ─────────────────────────── */}
+      {/* ── 2. TRUST — light ─────────────────────────────────── */}
       <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -171,7 +162,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. WING SELECTOR — night blue ────────────────────── */}
+      {/* ── 4. WING SELECTOR — night ─────────────────────────── */}
       <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
           <div className="max-w-2xl mx-auto text-center">
@@ -180,7 +171,8 @@ export default function HomePage() {
               Not sure which<br />
               <em style={{ color: 'var(--color-thermal)' }}>Skywalk wing is right?</em>
             </h2>
-            <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(240,239,237,0.7)' }}>
+            <p className="text-lg font-light leading-relaxed mb-10"
+              style={{ color: 'rgba(240,239,237,0.7)' }}>
               Answer five quick questions about your weight, experience, and goals. Our selector will match you to the right Skywalk Paragliders wing — and explain why.
             </p>
             <Link href="/selector" className="btn-primary text-base px-8 py-4">Find Your Wing</Link>
@@ -244,20 +236,24 @@ export default function HomePage() {
               { title: 'Choosing Your First Skywalk Wing', tag: 'Beginner', desc: 'A guide for student pilots ready to buy their first Skywalk Paragliders wing after graduating from school equipment.' },
             ].map((article) => (
               <div key={article.title} className="card p-6">
-                <span className="text-xs tracking-widest uppercase font-medium mb-4 block" style={{ color: 'var(--color-blue)' }}>
+                <span className="text-xs tracking-widest uppercase font-medium mb-4 block"
+                  style={{ color: 'var(--color-blue)' }}>
                   {article.tag}
                 </span>
-                <h3 className="font-light text-lg mb-3 leading-snug" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-night)' }}>
+                <h3 className="font-light text-lg mb-3 leading-snug"
+                  style={{ fontFamily: 'var(--font-display)', color: 'var(--color-night)' }}>
                   {article.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted-light)' }}>{article.desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted-light)' }}>
+                  {article.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 7. ADVICE CTA — night blue ───────────────────────── */}
+      {/* ── 7. ADVICE CTA — night ────────────────────────────── */}
       <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
           <div className="max-w-2xl mx-auto text-center">
@@ -266,7 +262,8 @@ export default function HomePage() {
               Still unsure?<br />
               <em style={{ color: 'var(--color-thermal)' }}>Let&apos;s talk.</em>
             </h2>
-            <p className="text-lg font-light leading-relaxed mb-10" style={{ color: 'rgba(240,239,237,0.7)' }}>
+            <p className="text-lg font-light leading-relaxed mb-10"
+              style={{ color: 'rgba(240,239,237,0.7)' }}>
               The selector is a starting point. For a real conversation about your flying goals, get in touch — we respond personally, via email or WhatsApp.
             </p>
             <Link href="/advice" className="btn-primary text-base px-8 py-4">Get Expert Advice</Link>

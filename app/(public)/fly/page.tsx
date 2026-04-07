@@ -104,40 +104,39 @@ const VIDEO_CATEGORIES = [
 
 export default function FlyPage() {
   return (
-    <>
-      {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative min-h-[60vh] flex items-end pb-20 overflow-hidden pt-24">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-sky-950 via-slate-900 to-stone-950" />
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-800/20 via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-stone-950 to-transparent" />
-        </div>
-        <div className="section relative z-10 w-full">
-          <p className="eyebrow mb-4">Experiences</p>
-          <h1 className="display-xl text-white mb-6">
+    <div style={{ backgroundColor: 'var(--surface-light)' }}>
+
+      {/* ── HERO — night blue ─────────────────────────────────── */}
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-24 relative overflow-hidden"
+        style={{ backgroundColor: 'var(--color-night)' }}>
+        <div className="absolute inset-0 opacity-20"
+          style={{ background: 'radial-gradient(ellipse at 60% 40%, var(--color-blue) 0%, transparent 60%)' }} />
+        <div className="section relative z-10">
+          <p className="eyebrow-dark mb-4">Experiences</p>
+          <h1 className="display-xl mb-6" style={{ color: 'white' }}>
             Fly with<br />
-            <em className="text-sky-300">Paraura.</em>
+            <em style={{ color: 'var(--color-thermal)' }}>Paraura</em>
           </h1>
-          <p className="text-stone-300 text-lg font-light max-w-lg leading-relaxed">
+          <p className="text-lg font-light max-w-lg leading-relaxed" style={{ color: 'rgba(240,239,237,0.75)' }}>
             Tandem flights, first-timer experiences, and connections to South Africa&apos;s best paragliding schools — across Cape Town, Johannesburg, and the Garden Route.
           </p>
         </div>
       </section>
 
-      {/* ── TANDEM FLIGHTS ───────────────────────────────────── */}
-      <section className="py-24 border-t border-white/5">
+      {/* ── TANDEM FLIGHTS — light ────────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="eyebrow mb-4">Tandem Flights</p>
-              <h2 className="display-lg text-white mb-6">
+              <h2 className="display-lg mb-6" style={{ color: 'var(--color-night)' }}>
                 Your first flight.<br />
-                <em className="text-stone-400">Unforgettable.</em>
+                <em style={{ color: 'var(--color-blue)' }}>Unforgettable</em>
               </h2>
-              <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
+              <p className="text-lg font-light leading-relaxed mb-6" style={{ color: 'var(--color-carbon)' }}>
                 A tandem paragliding flight is the purest way to experience free flight — no training required, just you and an experienced pilot sharing the sky. We work with a trusted network of tandem operators across South Africa.
               </p>
-              <p className="text-stone-400 leading-relaxed mb-8">
+              <p className="leading-relaxed mb-8" style={{ color: 'var(--text-muted-light)' }}>
                 Whether you&apos;re looking for a scenic coastal glide above Cape Town, a thermal flight over the Highveld, or a beach landing on the Garden Route — we&apos;ll connect you with the right pilot for the experience you&apos;re after.
               </p>
               <Link href="/advice?source=tandem" className="btn-primary">
@@ -153,10 +152,10 @@ export default function FlyPage() {
                 { title: 'Personal referral', desc: "We know our operators personally. You're not booking through a generic platform." },
               ].map((item) => (
                 <div key={item.title} className="card p-5 flex gap-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 shrink-0" />
+                  <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ backgroundColor: 'var(--color-blue)' }} />
                   <div>
-                    <p className="text-white font-medium text-sm mb-1">{item.title}</p>
-                    <p className="text-stone-400 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="font-medium text-sm mb-1" style={{ color: 'var(--color-night)' }}>{item.title}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted-light)' }}>{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -165,23 +164,23 @@ export default function FlyPage() {
         </div>
       </section>
 
-      {/* ── VIDEOS ───────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/5 bg-stone-900/30">
+      {/* ── VIDEOS — alt light ────────────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light-card)' }}>
         <div className="section">
           <p className="eyebrow mb-4">See it for yourself</p>
-          <h2 className="display-md text-white mb-4">
+          <h2 className="display-md mb-4" style={{ color: 'var(--color-night)' }}>
             Real flights.<br />Real people.
           </h2>
-          <p className="text-stone-400 text-lg font-light mb-16 max-w-xl">
+          <p className="text-lg font-light mb-16 max-w-xl" style={{ color: 'var(--text-muted-light)' }}>
             Over the years we&apos;ve flown hundreds of people — from first-timers to competition pilots, from the Garden Route coast to the French Alps.
           </p>
 
-          <div className="space-y-20">
+          <div className="space-y-16">
             {VIDEO_CATEGORIES.map((cat) => (
               <div key={cat.label}>
                 <div className="mb-6">
-                  <h3 className="text-white font-medium text-lg mb-1">{cat.label}</h3>
-                  <p className="text-stone-500 text-sm">{cat.desc}</p>
+                  <h3 className="font-medium text-lg mb-1" style={{ color: 'var(--color-night)' }}>{cat.label}</h3>
+                  <p className="text-sm" style={{ color: 'var(--text-muted-light)' }}>{cat.desc}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {cat.videos.map((video) => (
@@ -197,7 +196,7 @@ export default function FlyPage() {
                         />
                       </div>
                       <div className="px-4 py-3">
-                        <p className="text-stone-300 text-sm">{video.title}</p>
+                        <p className="text-sm font-medium" style={{ color: 'var(--color-carbon)' }}>{video.title}</p>
                       </div>
                     </div>
                   ))}
@@ -207,43 +206,40 @@ export default function FlyPage() {
           </div>
 
           <div className="mt-16 text-center">
-            <a
-              href="https://www.youtube.com/@parauraparagliding"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-            >
+            <a href="https://www.youtube.com/@parauraparagliding" target="_blank" rel="noopener noreferrer"
+              className="btn-secondary">
               More on YouTube ↗
             </a>
           </div>
         </div>
       </section>
 
-      {/* ── LEARN TO FLY ─────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/5">
+      {/* ── LEARN TO FLY — night ──────────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
           <div className="max-w-3xl">
-            <p className="eyebrow mb-4">Learn to Fly</p>
-            <h2 className="display-lg text-white mb-6">
+            <p className="eyebrow-dark mb-4">Learn to Fly</p>
+            <h2 className="display-lg mb-6" style={{ color: 'white' }}>
               Ready to fly<br />
-              <em className="text-stone-400">solo?</em>
+              <em style={{ color: 'var(--color-thermal)' }}>solo?</em>
             </h2>
-            <p className="text-stone-300 text-lg font-light leading-relaxed mb-6">
+            <p className="text-lg font-light leading-relaxed mb-6" style={{ color: 'rgba(240,239,237,0.75)' }}>
               Learning to paraglide is one of the most rewarding things you can do. A full course takes around 10–14 days of instruction spread over several weeks, and leads to your SAHPA student pilot licence.
             </p>
-            <p className="text-stone-400 leading-relaxed mb-10">
+            <p className="leading-relaxed mb-10" style={{ color: 'rgba(107,163,214,0.8)' }}>
               Paraura has long-standing relationships with reputable flight schools across South Africa. We&apos;ll point you to the right school for your location, schedule, and budget — and when you graduate, we&apos;ll help you choose your first wing.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
                 { step: '01', label: 'Talk to us', desc: "Tell us where you are and what you're looking for" },
                 { step: '02', label: 'We refer you', desc: 'We connect you with a trusted school in your area' },
-                { step: '03', label: 'You graduate', desc: "We help you choose your first wing when you're ready" },
+                { step: '03', label: 'You graduate', desc: "We help you choose your first Skywalk wing when you're ready" },
               ].map((s) => (
-                <div key={s.step} className="card p-5">
-                  <p className="text-sky-400 text-xs tracking-widest uppercase mb-3">{s.step}</p>
-                  <p className="text-white font-medium mb-2">{s.label}</p>
-                  <p className="text-stone-400 text-sm leading-relaxed">{s.desc}</p>
+                <div key={s.step} className="rounded-2xl p-5"
+                  style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <p className="text-xs tracking-widest uppercase mb-3" style={{ color: 'var(--color-thermal)' }}>{s.step}</p>
+                  <p className="font-medium mb-2 text-white">{s.label}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(240,239,237,0.6)' }}>{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -254,40 +250,45 @@ export default function FlyPage() {
         </div>
       </section>
 
-      {/* ── LOCATIONS ────────────────────────────────────────── */}
-      <section className="py-24 border-t border-white/5 bg-stone-900/30">
+      {/* ── LOCATIONS — light ─────────────────────────────────── */}
+      <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section">
           <p className="eyebrow mb-4">Where We Fly</p>
-          <h2 className="display-md text-white mb-12">
-            South Africa&apos;s best<br />paragliding locations.
+          <h2 className="display-md mb-12" style={{ color: 'var(--color-night)' }}>
+            South Africa&apos;s best<br />paragliding locations
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {LOCATIONS.map((loc) => (
               <div key={loc.slug} className="card overflow-hidden">
-                <div className="aspect-[3/2] bg-gradient-to-br from-sky-950 to-stone-900 relative flex items-end p-5">
-                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 to-transparent" />
+                <div className="aspect-[3/2] relative flex items-end p-5"
+                  style={{ background: 'linear-gradient(135deg, var(--color-night) 0%, var(--color-blue) 100%)' }}>
+                  <div className="absolute inset-0"
+                    style={{ background: 'linear-gradient(to top, rgba(26,58,92,0.9) 0%, transparent 60%)' }} />
                   <div className="relative z-10">
                     <h3 className="text-white text-xl font-light" style={{ fontFamily: 'var(--font-display)' }}>
                       {loc.name}
                     </h3>
-                    <p className="text-stone-400 text-xs mt-1">{loc.tagline}</p>
+                    <p className="text-xs mt-1" style={{ color: 'var(--color-thermal)' }}>{loc.tagline}</p>
                   </div>
                 </div>
                 <div className="p-5">
-                  <p className="text-stone-300 text-sm leading-relaxed mb-5">{loc.description}</p>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-carbon)' }}>
+                    {loc.description}
+                  </p>
                   <div className="space-y-2 mb-5">
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-stone-500 w-20">Conditions</span>
-                      <span className="text-stone-300">{loc.conditions}</span>
+                      <span className="w-20 font-medium" style={{ color: 'var(--color-blue)' }}>Conditions</span>
+                      <span style={{ color: 'var(--color-carbon)' }}>{loc.conditions}</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-stone-500 w-20">Best season</span>
-                      <span className="text-stone-300">{loc.season}</span>
+                      <span className="w-20 font-medium" style={{ color: 'var(--color-blue)' }}>Best season</span>
+                      <span style={{ color: 'var(--color-carbon)' }}>{loc.season}</span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {loc.highlights.map((h) => (
-                      <span key={h} className="badge bg-stone-800 text-stone-400 border border-stone-700 text-xs">
+                      <span key={h} className="text-xs px-2.5 py-1 rounded-full"
+                        style={{ backgroundColor: 'rgba(43,108,176,0.08)', color: 'var(--color-blue)' }}>
                         {h}
                       </span>
                     ))}
@@ -299,15 +300,15 @@ export default function FlyPage() {
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="py-20 border-t border-white/5">
+      {/* ── CTA — night ───────────────────────────────────────── */}
+      <section className="py-20 lg:py-24" style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section text-center max-w-xl mx-auto">
-          <p className="eyebrow mb-4">Ready to fly?</p>
-          <h2 className="display-md text-white mb-6">
+          <p className="eyebrow-dark mb-4">Ready to fly?</p>
+          <h2 className="display-md mb-6" style={{ color: 'white' }}>
             Tell us what you&apos;re<br />
-            <em className="text-stone-400">looking for.</em>
+            <em style={{ color: 'var(--color-thermal)' }}>looking for</em>
           </h2>
-          <p className="text-stone-400 leading-relaxed mb-8">
+          <p className="leading-relaxed mb-8" style={{ color: 'rgba(240,239,237,0.7)' }}>
             Whether it&apos;s a tandem experience, learning to fly, or finding the right wing — get in touch and we&apos;ll point you in the right direction.
           </p>
           <Link href="/advice?source=experience" className="btn-primary text-base px-8 py-4">
@@ -315,6 +316,6 @@ export default function FlyPage() {
           </Link>
         </div>
       </section>
-    </>
+    </div>
   )
 }
