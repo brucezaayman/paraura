@@ -3,135 +3,172 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { placeholderProducts } from '@/lib/placeholder-products'
-import { WingLevel } from '@/types'
+import { classicWings, lightweightWings, competitionWings, miniwings, tandemWings } from '@/lib/placeholder-products'
+import { Product, WingLevel } from '@/types'
 
-const LEVELS: { value: WingLevel | 'all'; label: string }[] = [
-  { value: 'all', label: 'All Levels' },
-  { value: 'A', label: 'EN-A' },
-  { value: 'B', label: 'EN-B' },
-  { value: 'C', label: 'EN-C' },
-  { value: 'D', label: 'EN-D' },
+const FILTERS = [
+  { value: 'all', label: 'All Wings' },
+  { value: 'classic', label: 'Classic' },
+  { value: 'lightweight', label: 'Lightweight' },
+  { value: 'competition', label: 'Competition' },
+  { value: 'miniwing', label: 'Miniwings' },
+  { value: 'tandem', label: 'Tandem' },
 ]
 
 const LEVEL_LABELS: Record<WingLevel, string> = {
   A: 'EN-A (Beginner)',
   B: 'EN-B (Intermediate)',
   C: 'EN-C (Advanced)',
-  D: 'EN-D (Expert / Competition)',
+  D: 'EN-D (Expert)',
+}
+
+const SECTION_DESCRIPTIONS: Record<string, string> = {
+  classic: 'The core Skywalk range — from student pilots to serious XC flyers. Robust, capable, and refined over many generations.',
+  lightweight: 'Ultralight construction for pilots who earn their launches on foot. No performance compromise, just less weight.',
+  competition: 'Built for the Red Bull X-Alps and PWC. For elite pilots who demand the absolute maximum.',
+  miniwing: 'Small wings, big fun. Speed riding, strong wind flying, and hike & fly at its most minimal.',
+  tandem: 'Professional tandem wings for licensed tandem pilots and commercial operators.',
+}
+
+function WingCard({ product }: { product: Product }) {
+  const heroImage = product.images?.[0] ?? null
+  return (
+    <Link href={`/wings/${product.slug}`} className="card group block overflow-hidden">
+      <div className="aspect-[4/3] relative overflow-hidden"
+        style={{ backgroundColor: 'var(--color-night)' }}>
+        {heroImage ? (
+          <Image src={heroImage} alt={product.name} fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+            <svg className="w-20 h-20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
+            </svg>
+          </div>
+        )}
+        <div className="absolute top-3 left-3 flex gap-2 z-10 flex-wrap">
+          <span className={`badge-${product.wing_level}`}>EN-{product.wing_level}</span>
+          {product.is_lightweight && (
+            <span className="badge text-xs" style={{ backgroundColor: 'rgba(26,58,92,0.85)', color: 'var(--color-thermal)', border: '1px solid rgba(107,163,214,0.3)' }}>
+              Lightweight
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="p-5">
+        <p className="text-xs tracking-widest uppercase mb-1" style={{ color: 'var(--color-blue)' }}>
+          {LEVEL_LABELS[product.wing_level]}
+        </p>
+        <h3 className="font-medium text-lg mb-2 group-hover:text-brand-blue transition-colors"
+          style={{ color: 'var(--color-night)' }}>
+          {product.name}
+        </h3>
+        <p className="text-sm leading-relaxed line-clamp-2 mb-4" style={{ color: 'var(--text-muted-light)' }}>
+          {product.description}
+        </p>
+        <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--text-muted-light)' }}>
+          {product.specs.cells && <span>{product.specs.cells} cells</span>}
+          {product.specs.aspect_ratio && <span>AR {product.specs.aspect_ratio}</span>}
+          <span>{product.weight_ranges.length} sizes</span>
+        </div>
+      </div>
+    </Link>
+  )
+}
+
+function Section({ title, description, wings, show }: {
+  title: string
+  description: string
+  wings: Product[]
+  show: boolean
+}) {
+  if (!show || wings.length === 0) return null
+  return (
+    <div className="mb-20">
+      <div className="mb-8">
+        <h2 className="display-sm mb-2" style={{ color: 'var(--color-night)' }}>{title}</h2>
+        <p className="text-sm max-w-xl" style={{ color: 'var(--text-muted-light)' }}>{description}</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {wings.map((w) => <WingCard key={w.id} product={w} />)}
+      </div>
+    </div>
+  )
 }
 
 export default function WingsPage() {
-  const [activeLevel, setActiveLevel] = useState<WingLevel | 'all'>('all')
-
-  const filtered =
-    activeLevel === 'all'
-      ? placeholderProducts
-      : placeholderProducts.filter((p) => p.wing_level === activeLevel)
+  const [active, setActive] = useState('all')
 
   return (
-    <>
+    <div style={{ backgroundColor: 'var(--surface-light)', minHeight: '100vh' }}>
       {/* Header */}
-      <div className="pt-32 pb-16 lg:pt-40 lg:pb-20">
+      <div className="pt-32 pb-16 lg:pt-40 lg:pb-20"
+        style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="section">
-          <p className="eyebrow mb-4">Skywalk Paragliders</p>
-          <h1 className="display-lg text-white mb-4">Skywalk Wings</h1>
-          <p className="text-stone-400 text-lg font-light max-w-md">
-            The complete Skywalk Paragliders line-up, available in South Africa through Paraura — official importer &amp; distributor.
+          <p className="eyebrow-dark mb-4">Skywalk Paragliders</p>
+          <h1 className="display-lg mb-4" style={{ color: 'white' }}>Skywalk Wings</h1>
+          <p className="text-lg font-light max-w-lg" style={{ color: 'var(--color-thermal)' }}>
+            The complete Skywalk Paragliders line-up — available in South Africa through Paraura, official importer &amp; distributor.
           </p>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="border-t border-b border-white/5 py-4 sticky top-16 lg:top-20 bg-stone-950/95 backdrop-blur-md z-30">
+      {/* Filter bar */}
+      <div className="sticky top-16 lg:top-20 z-30 border-b py-4"
+        style={{ backgroundColor: 'rgba(240,239,237,0.97)', backdropFilter: 'blur(12px)', borderColor: 'rgba(0,0,0,0.07)' }}>
         <div className="section">
-          <div className="flex items-center gap-2 overflow-x-auto pb-0.5 scrollbar-none">
-            <span className="text-stone-500 text-xs uppercase tracking-widest shrink-0 mr-2">Level:</span>
-            {LEVELS.map((level) => (
-              <button
-                key={level.value}
-                onClick={() => setActiveLevel(level.value)}
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+            <span className="text-xs tracking-widest uppercase shrink-0 mr-2" style={{ color: 'var(--text-muted-light)' }}>
+              Category:
+            </span>
+            {FILTERS.map((f) => (
+              <button key={f.value} onClick={() => setActive(f.value)}
                 className={`shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeLevel === level.value
-                    ? 'bg-white text-stone-950'
-                    : 'text-stone-400 hover:text-white hover:bg-white/5 border border-white/10'
+                  active === f.value
+                    ? 'text-white'
+                    : 'border hover:text-brand-blue'
                 }`}
-              >
-                {level.label}
+                style={{
+                  backgroundColor: active === f.value ? 'var(--color-blue)' : 'transparent',
+                  borderColor: active === f.value ? 'var(--color-blue)' : 'rgba(0,0,0,0.12)',
+                  color: active === f.value ? 'white' : 'var(--color-carbon)',
+                }}>
+                {f.label}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Sections */}
       <div className="py-16 lg:py-20">
         <div className="section">
-          {filtered.length === 0 ? (
-            <div className="text-center py-20 text-stone-500">No wings found for this filter.</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((product) => (
-                <Link key={product.id} href={`/wings/${product.slug}`} className="card group block overflow-hidden">
-                  {/* Image */}
-                  <div className="aspect-[4/3] bg-gradient-to-br from-stone-800 to-stone-900 relative overflow-hidden">
-                    {product.images?.[0] ? (
-                      <Image
-                        src={product.images[0]}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <svg className="w-16 h-16 text-stone-700" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 3C7 3 3 9 3 12s4 6 9 6c2 0 4-1 6-3l3-3-3-3c-1.5-1.5-3.5-3-6-6z" />
-                        </svg>
-                      </div>
-                    )}
-                    <div className="absolute top-3 left-3 flex gap-2 z-10">
-                      <span className={`badge-${product.wing_level}`}>EN-{product.wing_level}</span>
-                      {product.is_lightweight && (
-                        <span className="badge bg-stone-800/90 text-stone-300 border border-stone-700">Lightweight</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-5">
-                    <p className="text-stone-500 text-xs tracking-widest uppercase mb-1">
-                      {LEVEL_LABELS[product.wing_level]}
-                    </p>
-                    <h2 className="text-white font-medium text-lg mb-2 group-hover:text-sky-300 transition-colors">
-                      {product.name}
-                    </h2>
-                    <p className="text-stone-400 text-sm leading-relaxed line-clamp-2 mb-4">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-xs text-stone-500">
-                      <span>{product.weight_ranges.length} sizes</span>
-                      {product.specs.cells && <span>{product.specs.cells} cells</span>}
-                      {product.specs.aspect_ratio && <span>AR {product.specs.aspect_ratio}</span>}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <Section title="Classic Wings" description={SECTION_DESCRIPTIONS.classic}
+            wings={classicWings} show={active === 'all' || active === 'classic'} />
+          <Section title="Lightweight Wings" description={SECTION_DESCRIPTIONS.lightweight}
+            wings={lightweightWings} show={active === 'all' || active === 'lightweight'} />
+          <Section title="Competition" description={SECTION_DESCRIPTIONS.competition}
+            wings={competitionWings} show={active === 'all' || active === 'competition'} />
+          <Section title="Miniwings" description={SECTION_DESCRIPTIONS.miniwing}
+            wings={miniwings} show={active === 'all' || active === 'miniwing'} />
+          <Section title="Tandem Wings" description={SECTION_DESCRIPTIONS.tandem}
+            wings={tandemWings} show={active === 'all' || active === 'tandem'} />
         </div>
       </div>
 
-      {/* Advice CTA */}
-      <div className="border-t border-white/5 py-16">
+      {/* CTA */}
+      <div className="py-16 border-t" style={{ borderColor: 'rgba(0,0,0,0.07)' }}>
         <div className="section text-center">
-          <p className="text-stone-400 mb-4">Not sure which Skywalk wing is right for you?</p>
+          <p className="mb-4" style={{ color: 'var(--text-muted-light)' }}>
+            Not sure which Skywalk wing is right for you?
+          </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/selector" className="btn-primary">Use the Wing Selector</Link>
             <Link href="/advice" className="btn-secondary">Ask Paraura directly</Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

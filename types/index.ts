@@ -1,5 +1,6 @@
 export type WingLevel = 'A' | 'B' | 'C' | 'D'
-export type FlyingGoal = 'leisure' | 'xc' | 'competition' | 'hike-and-fly'
+export type WingCategory = 'classic' | 'lightweight' | 'competition' | 'miniwing' | 'tandem'
+export type FlyingGoal = 'leisure' | 'xc' | 'competition' | 'hike-and-fly' | 'tandem'
 export type FlyingConditions = 'coastal' | 'thermal-inland' | 'mixed'
 export type LightweightPreference = 'yes' | 'no' | 'not-sure'
 
@@ -7,13 +8,14 @@ export interface Product {
   id: string
   name: string
   slug: string
-  category: string
+  category: WingCategory | string
   description: string
   specs: Record<string, string>
   images: string[]
   wing_level: WingLevel
   weight_ranges: WeightRange[]
   is_lightweight: boolean
+  skywalk_url?: string
   created_at: string
 }
 

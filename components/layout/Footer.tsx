@@ -9,13 +9,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-2">
-            <Image
-              src="/images/parauralogo.png"
-              alt="Paraura"
-              width={200}
-              height={60}
-              className="h-14 w-auto object-contain mb-5"
-            />
+            <Image src="/images/parauralogo.png" alt="Paraura" width={200} height={60}
+              className="h-14 w-auto object-contain mb-5" />
             <p className="text-sm leading-relaxed max-w-xs mb-6" style={{ color: 'var(--color-thermal)' }}>
               South Africa&apos;s official Skywalk Paragliders importer &amp; distributor.
               Expert guidance for pilots at every level.
@@ -23,18 +18,9 @@ export default function Footer() {
             <p className="text-xs tracking-widest uppercase mb-6" style={{ color: 'rgba(107,163,214,0.45)' }}>
               Catch the Breeze
             </p>
-
-            {/* Skywalk official distributor badge */}
-            <a
-              href="https://www.skywalk.info"
-              target="_blank"
-              rel="noopener noreferrer"
+            <a href="https://www.skywalk.info" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-4 py-3 rounded-xl transition-all hover:opacity-80"
-              style={{
-                border: '1px solid rgba(107,163,214,0.3)',
-                backgroundColor: 'rgba(107,163,214,0.08)',
-              }}
-            >
+              style={{ border: '1px solid rgba(107,163,214,0.3)', backgroundColor: 'rgba(107,163,214,0.08)' }}>
               <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 shrink-0" style={{ color: 'var(--color-thermal)' }}>
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                   stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
@@ -62,10 +48,10 @@ export default function Footer() {
                 { href: '/advice', label: 'Get Advice' },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm transition-colors hover:text-white"
+                  <a href={link.href} className="text-sm transition-colors hover:text-white"
                     style={{ color: 'rgba(240,239,237,0.6)' }}>
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -84,10 +70,17 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/27000000000" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/27826363666" target="_blank" rel="noopener noreferrer"
                   className="text-sm transition-colors hover:text-white"
                   style={{ color: 'rgba(240,239,237,0.6)' }}>
-                  WhatsApp
+                  WhatsApp SA: +27 82 636 3666
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/447983345203" target="_blank" rel="noopener noreferrer"
+                  className="text-sm transition-colors hover:text-white"
+                  style={{ color: 'rgba(240,239,237,0.6)' }}>
+                  WhatsApp UK: +44 79 8334 5203
                 </a>
               </li>
               <li>
