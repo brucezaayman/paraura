@@ -539,7 +539,7 @@ export const harnesses = [
     type: 'competition',
     description:
       "The Range X-Alps 3 is Skywalk's competition and X-Alps harness. Pod design for maximum aerodynamics, minimal weight, and the performance demanded by pilots racing at the highest level. Worn by Skywalk athletes in the Red Bull X-Alps.",
-    images: [],
+    images: ['/images/RANGE X-ALPS3/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/range-x-alps3/',
   },
   {
@@ -550,7 +550,7 @@ export const harnesses = [
     type: 'competition',
     description:
       "The Athlete Version of the Range X-Alps 3 — same competition-grade aerodynamics and performance, upgraded with premium materials for professional athletes. The harness worn by Skywalk's elite team pilots.",
-    images: [],
+    images: ['/images/RANGE X-ALPS3 Athlete Version/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/range-x-alps-3-av/',
   },
   {
@@ -561,7 +561,7 @@ export const harnesses = [
     type: 'tandem',
     description:
       "The Guide & Guest is Skywalk's tandem harness set — pilot and passenger harnesses designed to work together. Secure, comfortable for the passenger, and giving the guide full control. The complete solution for professional tandem operations.",
-    images: [],
+    images: ['/images/GUIDE&GUEST/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/guide-guest/',
   },
 ]
