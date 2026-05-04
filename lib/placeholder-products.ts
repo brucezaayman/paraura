@@ -3,7 +3,7 @@ import { Product } from '@/types'
 /**
  * Paraura product data — sourced from skywalk.info
  * Organised into categories: classic, lightweight, competition, miniwing, tandem
- * Harnesses, reserves and accessories are in separate files
+ * Harnesses, reserves and accessories are in separate arrays below
  */
 
 // ── CLASSIC WINGS ────────────────────────────────────────────
@@ -278,7 +278,7 @@ export const lightweightWings: Product[] = [
       flying_goal: 'xc,hike-and-fly',
       conditions: 'thermal-inland,mixed',
     },
-    images: [],
+    images: ['/images/CUMEO2/hero.jpeg'],
     wing_level: 'B',
     weight_ranges: [
       { size: 'XS', min_weight: 60, max_weight: 80 },
@@ -309,7 +309,7 @@ export const lightweightWings: Product[] = [
       flying_goal: 'xc,hike-and-fly,competition',
       conditions: 'thermal-inland,mixed',
     },
-    images: [],
+    images: ['/images/SAGE/hero.jpeg'],
     wing_level: 'C',
     weight_ranges: [
       { size: 'XS', min_weight: 60, max_weight: 80 },
@@ -344,7 +344,7 @@ export const competitionWings: Product[] = [
       flying_goal: 'competition,xc,hike-and-fly',
       conditions: 'thermal-inland,mixed',
     },
-    images: [],
+    images: ['/images/XALPS6/hero.jpeg'],
     wing_level: 'D',
     weight_ranges: [
       { size: 'S', min_weight: 70, max_weight: 90 },
@@ -377,7 +377,7 @@ export const miniwings: Product[] = [
       flying_goal: 'hike-and-fly',
       conditions: 'mixed',
     },
-    images: [],
+    images: ['/images/SPIRIT/hero.jpeg'],
     wing_level: 'B',
     weight_ranges: [
       { size: 'XS', min_weight: 60, max_weight: 85 },
@@ -406,7 +406,7 @@ export const miniwings: Product[] = [
       flying_goal: 'leisure,hike-and-fly',
       conditions: 'coastal,mixed',
     },
-    images: [],
+    images: ['/images/TONIC2/hero.jpeg'],
     wing_level: 'C',
     weight_ranges: [
       { size: 'XS', min_weight: 60, max_weight: 85 },
@@ -432,7 +432,7 @@ export const miniwings: Product[] = [
       flying_goal: 'hike-and-fly',
       conditions: 'mixed',
     },
-    images: [],
+    images: ['/images/PACE/hero.jpeg'],
     wing_level: 'B',
     weight_ranges: [
       { size: 'XS', min_weight: 60, max_weight: 85 },
@@ -463,7 +463,7 @@ export const tandemWings: Product[] = [
       flying_goal: 'tandem',
       conditions: 'coastal,thermal-inland,mixed',
     },
-    images: [],
+    images: ["/images/JOIN'T5/hero.jpeg"],
     wing_level: 'B',
     weight_ranges: [
       { size: '200', min_weight: 100, max_weight: 200 },
@@ -495,7 +495,7 @@ export const harnesses = [
     type: 'classic',
     description:
       'The Cruise is the comfortable companion for everyday flying. Airbag back protection, generous storage, and a relaxed fit make it the go-to harness for pilots who value comfort on long XC flights. Suitable for all pilot levels.',
-    images: [],
+    images: ['/images/CRUISE/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/cruise/',
   },
   {
@@ -505,8 +505,8 @@ export const harnesses = [
     category: 'harness',
     type: 'lightweight',
     description:
-      'The Sleeve is Skywalk\'s compact, packable lightweight harness for hike & fly. Minimal weight, full back protection option, and a pack size that fits alongside your wing. The practical choice for pilots who earn their launches on foot.',
-    images: [],
+      "The Sleeve is Skywalk's compact, packable lightweight harness for hike & fly. Minimal weight, full back protection option, and a pack size that fits alongside your wing. The practical choice for pilots who earn their launches on foot.",
+    images: ['/images/SLEEVE/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/sleeve/',
   },
   {
@@ -516,8 +516,8 @@ export const harnesses = [
     category: 'harness',
     type: 'lightweight',
     description:
-      'The Core is Skywalk\'s ultralight harness — minimal weight with a full back protection option. Designed for pilots who want the lightest possible setup without compromising safety. Packs small, flies well.',
-    images: [],
+      "The Core is Skywalk's ultralight harness — minimal weight with a full back protection option. Designed for pilots who want the lightest possible setup without compromising safety. Packs small, flies well.",
+    images: ['/images/CORE/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/core/',
   },
   {
@@ -528,7 +528,7 @@ export const harnesses = [
     type: 'lightweight',
     description:
       'The Breeze 2 combines a lightweight harness with an integrated rescue container — ideal for hike & fly pilots who want everything in one system. Optimised weight and pack size without sacrificing the safety of a dedicated rescue deployment.',
-    images: [],
+    images: ['/images/BREEZE2/hero.jpeg'],
     skywalk_url: 'https://skywalk.info/project/breeze2/',
   },
   {
@@ -538,7 +538,7 @@ export const harnesses = [
     category: 'harness',
     type: 'competition',
     description:
-      'The Range X-Alps 3 is Skywalk\'s competition and X-Alps harness. Pod design for maximum aerodynamics, minimal weight, and the performance demanded by pilots racing at the highest level. Worn by Skywalk athletes in the Red Bull X-Alps.',
+      "The Range X-Alps 3 is Skywalk's competition and X-Alps harness. Pod design for maximum aerodynamics, minimal weight, and the performance demanded by pilots racing at the highest level. Worn by Skywalk athletes in the Red Bull X-Alps.",
     images: [],
     skywalk_url: 'https://skywalk.info/project/range-x-alps3/',
   },
@@ -549,7 +549,7 @@ export const harnesses = [
     category: 'harness',
     type: 'competition',
     description:
-      'The Athlete Version of the Range X-Alps 3 — same competition-grade aerodynamics and performance, upgraded with premium materials for professional athletes. The harness worn by Skywalk\'s elite team pilots.',
+      "The Athlete Version of the Range X-Alps 3 — same competition-grade aerodynamics and performance, upgraded with premium materials for professional athletes. The harness worn by Skywalk's elite team pilots.",
     images: [],
     skywalk_url: 'https://skywalk.info/project/range-x-alps-3-av/',
   },
@@ -560,7 +560,7 @@ export const harnesses = [
     category: 'harness',
     type: 'tandem',
     description:
-      'The Guide & Guest is Skywalk\'s tandem harness set — pilot and passenger harnesses designed to work together. Secure, comfortable for the passenger, and giving the guide full control. The complete solution for professional tandem operations.',
+      "The Guide & Guest is Skywalk's tandem harness set — pilot and passenger harnesses designed to work together. Secure, comfortable for the passenger, and giving the guide full control. The complete solution for professional tandem operations.",
     images: [],
     skywalk_url: 'https://skywalk.info/project/guide-guest/',
   },
@@ -574,7 +574,7 @@ export const reserves = [
     slug: 'salsa',
     category: 'reserve',
     description:
-      'The Salsa is Skywalk\'s all-round rescue parachute. Round design, reliable deployment, and a stable descent make it the trusted choice for everyday XC pilots. Available in multiple sizes to match pilot weight.',
+      "The Salsa is Skywalk's all-round rescue parachute. Round design, reliable deployment, and a stable descent make it the trusted choice for everyday XC pilots. Available in multiple sizes to match pilot weight.",
     skywalk_url: 'https://skywalk.info/project/salsa/',
   },
   {
@@ -583,7 +583,7 @@ export const reserves = [
     slug: 'tapa-x-alps',
     category: 'reserve',
     description:
-      'The TAPA X-Alps is Skywalk\'s ultralight rescue for hike & fly pilots. Minimum pack volume, minimum weight, fast opening, and stable descent. When every gram matters and the mountains demand a reserve you can trust.',
+      "The TAPA X-Alps is Skywalk's ultralight rescue for hike & fly pilots. Minimum pack volume, minimum weight, fast opening, and stable descent. When every gram matters and the mountains demand a reserve you can trust.",
     skywalk_url: 'https://skywalk.info/project/tapa-x-alps/',
   },
   {
@@ -592,7 +592,7 @@ export const reserves = [
     slug: 'pepper-cross-light',
     category: 'reserve',
     description:
-      'The Pepper Cross Light is Skywalk\'s lightweight cross-braced reserve. Fast opening, stable descent, and a more controlled sink rate than a standard round. For pilots who want the performance of a cross-braced design in a lightweight package.',
+      "The Pepper Cross Light is Skywalk's lightweight cross-braced reserve. Fast opening, stable descent, and a more controlled sink rate than a standard round. For pilots who want the performance of a cross-braced design in a lightweight package.",
     skywalk_url: 'https://skywalk.info/project/pepper-cross-light/',
   },
 ]
