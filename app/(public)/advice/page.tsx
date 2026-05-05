@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { submitAdviceRequest } from '@/server/actions/advice'
@@ -43,7 +43,6 @@ function AdviceFormInner() {
   }
 
   const canNextStep0 = form.name.trim().length > 1 && form.email.includes('@')
-  const canNextStep1 = true // context is optional
   const canSubmit = form.message.trim().length > 5
 
   async function handleSubmit() {
@@ -52,43 +51,55 @@ function AdviceFormInner() {
 
     const source = params.get('wing') ? 'product' : params.get('goal') ? 'selector' : 'homepage'
 
-    const result = await submitAdviceRequest({
-      name: form.name,
-      email: form.email,
-      whatsapp: form.whatsapp || undefined,
-      pilot_level: form.pilot_level || undefined,
-      weight: form.weight ? Number(form.weight) : undefined,
-      wing_of_interest: form.wing_of_interest || undefined,
-      flying_goal: form.flying_goal || undefined,
-      message: form.message,
-      source,
-    })
+    try {
+      const result = await submitAdviceRequest({
+        name: form.name,
+        email: form.email,
+        whatsapp: form.whatsapp || undefined,
+        pilot_level: form.pilot_level || undefined,
+        weight: form.weight ? Number(form.weight) : undefined,
+        wing_of_interest: form.wing_of_interest || undefined,
+        flying_goal: form.flying_goal || undefined,
+        message: form.message,
+        source,
+      })
 
-    setLoading(false)
-
-    if (result.success) {
-      setSubmitted(true)
-    } else {
-      setError(result.error ?? 'Something went wrong.')
+      if (result.success) {
+        setSubmitted(true)
+      } else {
+        setError(result.error ?? 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Something went wrong. Please try again or WhatsApp us directly.')
+    } finally {
+      setLoading(false)
     }
   }
 
   // ── SUCCESS ──────────────────────────────────────────────
   if (submitted) {
     return (
-      <div className="min-h-screen pt-32 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: 'var(--surface-light)' }}>
         <div className="section max-w-lg text-center">
-          <div className="w-12 h-12 rounded-full bg-sky-400/20 border border-sky-400/40 flex items-center justify-center mx-auto mb-6">
-            <svg className="w-5 h-5 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
+            style={{ backgroundColor: 'rgba(43,108,176,0.1)', border: '1px solid rgba(43,108,176,0.2)' }}>
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              style={{ color: 'var(--color-blue)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <p className="eyebrow mb-4">Request Received</p>
-          <h2 className="display-md text-white mb-4">We&apos;ll be in touch soon.</h2>
-          <p className="text-stone-400 leading-relaxed mb-8">
-            Thanks {form.name.split(' ')[0]}. We&apos;ve received your request and will get back to you personally via email — or WhatsApp if you shared your number.
+          <h2 className="display-md mb-4" style={{ color: 'var(--color-night)' }}>
+            We&apos;ll be in touch soon.
+          </h2>
+          <p className="leading-relaxed mb-3" style={{ color: 'var(--text-muted-light)' }}>
+            Thanks {form.name.split(' ')[0]}. We&apos;ve received your request and will get back to you personally — usually within 24 hours.
           </p>
-          <Link href="/" className="btn-secondary">
+          <p className="text-sm mb-8" style={{ color: 'var(--text-muted-light)' }}>
+            Check your email for a confirmation. If you shared your WhatsApp number we may reach out there too.
+          </p>
+          <Link href="/" className="btn-primary">
             Back to Paraura
           </Link>
         </div>
@@ -98,62 +109,62 @@ function AdviceFormInner() {
 
   // ── FORM ─────────────────────────────────────────────────
   return (
-    <div className="min-h-screen pt-28 pb-20">
-      <div className="section max-w-xl mx-auto">
+    <div className="min-h-screen pb-20" style={{ backgroundColor: 'var(--surface-light)' }}>
 
-        {/* Progress */}
+      {/* Night hero strip */}
+      <div className="pt-32 pb-12 lg:pt-40 lg:pb-16"
+        style={{ backgroundColor: 'var(--color-night)' }}>
+        <div className="section max-w-xl mx-auto">
+          <p className="eyebrow-dark mb-3">Get Advice</p>
+          <h1 className="display-lg mb-3" style={{ color: 'white' }}>
+            Talk to Paraura.
+          </h1>
+          <p className="font-light" style={{ color: 'var(--color-thermal)' }}>
+            Personal, expert advice — no sales pressure. We respond via email or WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <div className="section max-w-xl mx-auto pt-12">
+
+        {/* Progress bar */}
         <div className="flex items-center gap-2 mb-10">
           {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className={`h-px flex-1 transition-all duration-300 ${
-                i <= step ? 'bg-sky-400' : 'bg-stone-800'
-              }`}
-            />
+            <div key={i} className="h-1 flex-1 rounded-full transition-all duration-300"
+              style={{ backgroundColor: i <= step ? 'var(--color-blue)' : 'rgba(0,0,0,0.1)' }} />
           ))}
         </div>
 
         {/* ── Step 0: Contact info ── */}
         {step === 0 && (
           <div>
-            <p className="eyebrow mb-4">Step 1 of 3</p>
-            <h1 className="display-md text-white mb-2">Let&apos;s start with your details.</h1>
-            <p className="text-stone-400 mb-8 text-sm">
+            <p className="eyebrow mb-3">Step 1 of 3</p>
+            <h2 className="display-sm mb-2" style={{ color: 'var(--color-night)' }}>
+              Let&apos;s start with your details.
+            </h2>
+            <p className="text-sm mb-8" style={{ color: 'var(--text-muted-light)' }}>
               We respond personally — your info stays with Paraura only.
             </p>
 
             <div className="space-y-4">
               <div>
                 <label className="label">Name *</label>
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={form.name}
+                <input type="text" placeholder="Your name" value={form.name}
                   onChange={(e) => update('name', e.target.value)}
-                  className="input"
-                  autoFocus
-                />
+                  className="input" autoFocus />
               </div>
               <div>
                 <label className="label">Email *</label>
-                <input
-                  type="email"
-                  placeholder="you@email.com"
-                  value={form.email}
+                <input type="email" placeholder="you@email.com" value={form.email}
                   onChange={(e) => update('email', e.target.value)}
-                  className="input"
-                />
+                  className="input" />
               </div>
               <div>
                 <label className="label">WhatsApp (optional but encouraged)</label>
-                <input
-                  type="tel"
-                  placeholder="+27 82 000 0000"
-                  value={form.whatsapp}
+                <input type="tel" placeholder="+27 82 000 0000" value={form.whatsapp}
                   onChange={(e) => update('whatsapp', e.target.value)}
-                  className="input"
-                />
-                <p className="text-stone-600 text-xs mt-1.5">
+                  className="input" />
+                <p className="text-xs mt-1.5" style={{ color: 'var(--text-muted-light)' }}>
                   We use WhatsApp for quick follow-ups — much faster than email.
                 </p>
               </div>
@@ -164,25 +175,26 @@ function AdviceFormInner() {
         {/* ── Step 1: Context ── */}
         {step === 1 && (
           <div>
-            <p className="eyebrow mb-4">Step 2 of 3</p>
-            <h1 className="display-md text-white mb-2">Tell us about your flying.</h1>
-            <p className="text-stone-400 mb-8 text-sm">
-              This helps us give you precise advice. All fields optional — fill in what you know.
+            <p className="eyebrow mb-3">Step 2 of 3</p>
+            <h2 className="display-sm mb-2" style={{ color: 'var(--color-night)' }}>
+              Tell us about your flying.
+            </h2>
+            <p className="text-sm mb-8" style={{ color: 'var(--text-muted-light)' }}>
+              This helps us give you precise advice. All fields optional.
             </p>
 
             <div className="space-y-4">
               {form.wing_of_interest && (
-                <div className="bg-sky-950/30 border border-sky-900/50 rounded-xl px-4 py-3 text-sm text-sky-300">
-                  Wing of interest: <strong>{form.wing_of_interest}</strong>
+                <div className="rounded-xl px-4 py-3 text-sm font-medium"
+                  style={{ backgroundColor: 'rgba(43,108,176,0.08)', color: 'var(--color-blue)', border: '1px solid rgba(43,108,176,0.15)' }}>
+                  Wing of interest: {form.wing_of_interest}
                 </div>
               )}
               <div>
                 <label className="label">Pilot Level</label>
-                <select
-                  value={form.pilot_level}
+                <select value={form.pilot_level}
                   onChange={(e) => update('pilot_level', e.target.value)}
-                  className="select"
-                >
+                  className="select">
                   {LEVELS.map((l) => (
                     <option key={l.value} value={l.value}>{l.label}</option>
                   ))}
@@ -190,24 +202,19 @@ function AdviceFormInner() {
               </div>
               <div>
                 <label className="label">All-up flying weight (kg)</label>
-                <input
-                  type="number"
-                  min={40}
-                  max={200}
-                  placeholder="e.g. 90"
+                <input type="number" min={40} max={200} placeholder="e.g. 90"
                   value={form.weight}
                   onChange={(e) => update('weight', e.target.value)}
-                  className="input"
-                />
-                <p className="text-stone-600 text-xs mt-1.5">You + harness + reserve + gear</p>
+                  className="input" />
+                <p className="text-xs mt-1.5" style={{ color: 'var(--text-muted-light)' }}>
+                  You + harness + reserve + gear
+                </p>
               </div>
               <div>
                 <label className="label">Flying goal</label>
-                <select
-                  value={form.flying_goal}
+                <select value={form.flying_goal}
                   onChange={(e) => update('flying_goal', e.target.value)}
-                  className="select"
-                >
+                  className="select">
                   <option value="">Select...</option>
                   {Object.entries(GOALS).map(([v, l]) => (
                     <option key={v} value={v}>{l}</option>
@@ -221,38 +228,36 @@ function AdviceFormInner() {
         {/* ── Step 2: Message ── */}
         {step === 2 && (
           <div>
-            <p className="eyebrow mb-4">Step 3 of 3</p>
-            <h1 className="display-md text-white mb-2">Anything else to add?</h1>
-            <p className="text-stone-400 mb-8 text-sm">
+            <p className="eyebrow mb-3">Step 3 of 3</p>
+            <h2 className="display-sm mb-2" style={{ color: 'var(--color-night)' }}>
+              Anything else to add?
+            </h2>
+            <p className="text-sm mb-8" style={{ color: 'var(--text-muted-light)' }}>
               Questions, context, or anything that helps us understand what you&apos;re looking for.
             </p>
             <div>
               <label className="label">Your message *</label>
-              <textarea
-                rows={5}
-                placeholder="e.g. I'm a post-school pilot with about 50 hours, flying mostly at Chapmans Peak. I want to step up from my school wing and buy my first personal glider..."
+              <textarea rows={6}
+                placeholder="e.g. I'm a post-school pilot with about 50 hours, flying mostly at Hermanus. I want to step up from my school wing and buy my first personal glider..."
                 value={form.message}
                 onChange={(e) => update('message', e.target.value)}
-                className="textarea"
-              />
+                className="textarea" />
             </div>
 
             {error && (
-              <div className="mt-4 bg-red-950/40 border border-red-900 rounded-xl px-4 py-3 text-red-400 text-sm">
+              <div className="mt-4 rounded-xl px-4 py-3 text-sm"
+                style={{ backgroundColor: 'rgba(220,38,38,0.06)', color: '#DC2626', border: '1px solid rgba(220,38,38,0.15)' }}>
                 {error}
               </div>
             )}
           </div>
         )}
 
-        {/* Nav */}
+        {/* Navigation buttons */}
         <div className="flex items-center justify-between mt-10">
           {step > 0 ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s - 1)}
-              className="btn-ghost"
-            >
+            <button type="button" onClick={() => setStep((s) => s - 1)}
+              className="btn-ghost" style={{ color: 'var(--color-blue)' }}>
               ← Back
             </button>
           ) : (
@@ -260,25 +265,28 @@ function AdviceFormInner() {
           )}
 
           {step < 2 ? (
-            <button
-              type="button"
-              onClick={() => setStep((s) => s + 1)}
-              disabled={step === 0 ? !canNextStep0 : !canNextStep1}
-              className={`btn-primary ${(step === 0 ? !canNextStep0 : false) ? 'opacity-40 cursor-not-allowed' : ''}`}
-            >
+            <button type="button" onClick={() => setStep((s) => s + 1)}
+              disabled={step === 0 ? !canNextStep0 : false}
+              className={`btn-primary ${step === 0 && !canNextStep0 ? 'opacity-40 cursor-not-allowed' : ''}`}>
               Continue →
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={handleSubmit}
+            <button type="button" onClick={handleSubmit}
               disabled={!canSubmit || loading}
-              className={`btn-primary ${(!canSubmit || loading) ? 'opacity-40 cursor-not-allowed' : ''}`}
-            >
+              className={`btn-primary ${!canSubmit || loading ? 'opacity-40 cursor-not-allowed' : ''}`}>
               {loading ? 'Sending...' : 'Send Request'}
             </button>
           )}
         </div>
+
+        {/* WhatsApp fallback */}
+        <p className="text-center text-sm mt-8" style={{ color: 'var(--text-muted-light)' }}>
+          Prefer to chat directly?{' '}
+          <a href="https://wa.me/27826363666" target="_blank" rel="noopener noreferrer"
+            className="font-medium" style={{ color: 'var(--color-blue)' }}>
+            WhatsApp us
+          </a>
+        </p>
       </div>
     </div>
   )
@@ -286,7 +294,12 @@ function AdviceFormInner() {
 
 export default function AdvicePage() {
   return (
-    <Suspense fallback={<div className="min-h-screen pt-32 flex items-center justify-center text-stone-400">Loading...</div>}>
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: 'var(--surface-light)', color: 'var(--text-muted-light)' }}>
+        Loading...
+      </div>
+    }>
       <AdviceFormInner />
     </Suspense>
   )

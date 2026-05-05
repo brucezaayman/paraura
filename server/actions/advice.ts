@@ -25,18 +25,19 @@ export async function submitAdviceRequest(data: AdviceFormData): Promise<AdviceR
     const supabase = createServerClient()
 
     // Upsert pilot — match on email
-    const pilotData = {
-      name: data.name,
-      email: data.email,
-      whatsapp: data.whatsapp ?? null,
-      pilot_level: data.pilot_level ?? null,
-      weight: data.weight ?? null,
-      updated_at: new Date().toISOString(),
-    }
-
     const { data: pilot, error: pilotError } = await supabase
       .from('pilots')
-      .upsert(pilotData, { onConflict: 'email' })
+      .upsert(
+        {
+          name: data.name,
+          email: data.email,
+          whatsapp: data.whatsapp ?? null,
+          pilot_level: data.pilot_level ?? null,
+          weight: data.weight ?? null,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'email' }
+      )
       .select('id')
       .single()
 
@@ -68,24 +69,23 @@ export async function submitAdviceRequest(data: AdviceFormData): Promise<AdviceR
       return { success: false, error: 'Failed to submit your request.' }
     }
 
-    // Send emails — fire and forget (don't block form success if email fails)
-    await Promise.all([
-      sendAdviceNotification({
-        name: data.name,
-        email: data.email,
-        whatsapp: data.whatsapp,
-        pilot_level: data.pilot_level,
-        weight: data.weight,
-        wing_of_interest: data.wing_of_interest,
-        flying_goal: data.flying_goal,
-        message: data.message,
-        source: data.source,
-      }),
-      sendAdviceConfirmation({
-        name: data.name,
-        email: data.email,
-      }),
-    ])
+    // Fire emails without awaiting — don't block form success if email is slow
+    sendAdviceNotification({
+      name: data.name,
+      email: data.email,
+      whatsapp: data.whatsapp,
+      pilot_level: data.pilot_level,
+      weight: data.weight,
+      wing_of_interest: data.wing_of_interest,
+      flying_goal: data.flying_goal,
+      message: data.message,
+      source: data.source,
+    }).catch((err) => console.error('Advice notification email failed:', err))
+
+    sendAdviceConfirmation({
+      name: data.name,
+      email: data.email,
+    }).catch((err) => console.error('Advice confirmation email failed:', err))
 
     return { success: true }
   } catch (err) {
