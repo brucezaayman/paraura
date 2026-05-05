@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { harnesses } from '@/lib/placeholder-products'
 
@@ -62,34 +63,46 @@ export default function HarnessesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {grouped[type].map((harness) => (
                   <Link key={harness.id} href={`/harnesses/${harness.slug}`}
-                    className="card group block p-6">
-                    {/* Icon placeholder */}
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                      style={{ backgroundColor: 'rgba(43,108,176,0.08)', border: '1px solid rgba(43,108,176,0.12)' }}>
-                      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6"
-                        style={{ color: 'var(--color-blue)' }}>
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
-                          fill="currentColor" opacity={0.3} />
-                        <path d="M16 6H8a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V7a1 1 0 00-1-1zm-1 9H9v-1h6v1zm0-3H9v-1h6v1zm0-3H9V8h6v1z"
-                          fill="currentColor" />
-                      </svg>
+                    className="card group block overflow-hidden">
+                    {/* Image */}
+                    <div className="aspect-[4/3] relative overflow-hidden"
+                      style={{ backgroundColor: 'var(--color-night)' }}>
+                      {harness.images?.[0] ? (
+                        <Image
+                          src={harness.images[0]}
+                          alt={harness.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                          <svg className="w-20 h-20" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
+                          </svg>
+                        </div>
+                      )}
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="badge text-xs"
+                          style={{ backgroundColor: 'rgba(26,58,92,0.85)', color: 'var(--color-thermal)', border: '1px solid rgba(107,163,214,0.3)' }}>
+                          {TYPE_LABELS[harness.type]}
+                        </span>
+                      </div>
                     </div>
 
-                    <span className="text-xs tracking-widest uppercase font-medium mb-2 block"
-                      style={{ color: 'var(--color-blue)' }}>
-                      {TYPE_LABELS[harness.type]}
-                    </span>
-                    <h3 className="font-medium text-lg mb-3 group-hover:text-brand-blue transition-colors"
-                      style={{ color: 'var(--color-night)', fontFamily: 'var(--font-display)' }}>
-                      {harness.name}
-                    </h3>
-                    <p className="text-sm leading-relaxed mb-5"
-                      style={{ color: 'var(--text-muted-light)' }}>
-                      {harness.description}
-                    </p>
-                    <span className="text-sm font-medium" style={{ color: 'var(--color-blue)' }}>
-                      View details →
-                    </span>
+                    <div className="p-5">
+                      <h3 className="font-medium text-lg mb-2 group-hover:text-brand-blue transition-colors"
+                        style={{ color: 'var(--color-night)', fontFamily: 'var(--font-display)' }}>
+                        {harness.name}
+                      </h3>
+                      <p className="text-sm leading-relaxed mb-4 line-clamp-2"
+                        style={{ color: 'var(--text-muted-light)' }}>
+                        {harness.description}
+                      </p>
+                      <span className="text-sm font-medium" style={{ color: 'var(--color-blue)' }}>
+                        View details →
+                      </span>
+                    </div>
                   </Link>
                 ))}
               </div>
