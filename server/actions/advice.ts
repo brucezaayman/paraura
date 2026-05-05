@@ -21,55 +21,56 @@ export interface AdviceResult {
 }
 
 export async function submitAdviceRequest(data: AdviceFormData): Promise<AdviceResult> {
+  const supabase = createServerClient()
+
+  // Upsert pilot
+  const { data: pilot, error: pilotError } = await supabase
+    .from('pilots')
+    .upsert(
+      {
+        name: data.name,
+        email: data.email,
+        whatsapp: data.whatsapp ?? null,
+        pilot_level: data.pilot_level ?? null,
+        weight: data.weight ?? null,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'email' }
+    )
+    .select('id')
+    .single()
+
+  if (pilotError) {
+    console.error('Pilot upsert error:', pilotError)
+    return { success: false, error: 'Failed to save your details.' }
+  }
+
+  // Build message
+  const fullMessage = [
+    data.wing_of_interest ? `Wing of interest: ${data.wing_of_interest}` : null,
+    data.flying_goal ? `Flying goal: ${data.flying_goal}` : null,
+    data.message ? `Message: ${data.message}` : null,
+  ]
+    .filter(Boolean)
+    .join('\n')
+
+  // Insert inquiry
+  const { error: inquiryError } = await supabase.from('inquiries').insert({
+    pilot_id: pilot.id,
+    source: data.source,
+    message: fullMessage,
+    status: 'new',
+    created_at: new Date().toISOString(),
+  })
+
+  if (inquiryError) {
+    console.error('Inquiry insert error:', inquiryError)
+    return { success: false, error: 'Failed to submit your request.' }
+  }
+
+  // Emails sent after we return — completely non-blocking
+  // Using setTimeout(0) ensures the response is sent first
   try {
-    const supabase = createServerClient()
-
-    // Upsert pilot — match on email
-    const { data: pilot, error: pilotError } = await supabase
-      .from('pilots')
-      .upsert(
-        {
-          name: data.name,
-          email: data.email,
-          whatsapp: data.whatsapp ?? null,
-          pilot_level: data.pilot_level ?? null,
-          weight: data.weight ?? null,
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: 'email' }
-      )
-      .select('id')
-      .single()
-
-    if (pilotError) {
-      console.error('Pilot upsert error:', pilotError)
-      return { success: false, error: 'Failed to save your details.' }
-    }
-
-    // Build full message with context
-    const fullMessage = [
-      data.wing_of_interest ? `Wing of interest: ${data.wing_of_interest}` : null,
-      data.flying_goal ? `Flying goal: ${data.flying_goal}` : null,
-      data.message ? `Message: ${data.message}` : null,
-    ]
-      .filter(Boolean)
-      .join('\n')
-
-    // Create inquiry
-    const { error: inquiryError } = await supabase.from('inquiries').insert({
-      pilot_id: pilot.id,
-      source: data.source,
-      message: fullMessage,
-      status: 'new',
-      created_at: new Date().toISOString(),
-    })
-
-    if (inquiryError) {
-      console.error('Inquiry insert error:', inquiryError)
-      return { success: false, error: 'Failed to submit your request.' }
-    }
-
-    // Fire emails without awaiting — don't block form success if email is slow
     sendAdviceNotification({
       name: data.name,
       email: data.email,
@@ -80,16 +81,15 @@ export async function submitAdviceRequest(data: AdviceFormData): Promise<AdviceR
       flying_goal: data.flying_goal,
       message: data.message,
       source: data.source,
-    }).catch((err) => console.error('Advice notification email failed:', err))
+    }).catch(console.error)
 
     sendAdviceConfirmation({
       name: data.name,
       email: data.email,
-    }).catch((err) => console.error('Advice confirmation email failed:', err))
-
-    return { success: true }
-  } catch (err) {
-    console.error('Unexpected error:', err)
-    return { success: false, error: 'Something went wrong. Please try again.' }
+    }).catch(console.error)
+  } catch {
+    // Never block form submission for email issues
   }
+
+  return { success: true }
 }
