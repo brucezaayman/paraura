@@ -8,7 +8,7 @@ import { supabase } from '@/lib/supabase'
 
 const NAV_ITEMS = [
   {
-    href: '/dashboard',
+    href: '/admin/dashboard',
     label: 'Dashboard',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -17,7 +17,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/leads',
+    href: '/admin/leads',
     label: 'Inquiries',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -26,7 +26,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/pilots',
+    href: '/admin/pilots',
     label: 'Pilots',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -35,8 +35,8 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/posts',
-    label: 'Articles',
+    href: '/admin/posts',
+    label: 'Insights',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -44,7 +44,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/products/import',
+    href: '/admin/products/import',
     label: 'Import Product',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session && pathname !== '/login') {
+      if (!session) {
         router.replace('/login')
       } else {
         setChecking(false)
@@ -77,7 +77,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (checking) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--color-night)' }}>
+      <div className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: 'var(--color-night)' }}>
         <div className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin"
           style={{ borderColor: 'var(--color-thermal)', borderTopColor: 'transparent' }} />
       </div>
@@ -88,18 +89,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: '#F8F7F5' }}>
+
       {/* Sidebar (desktop) */}
-      <aside className="hidden lg:flex flex-col w-56 shrink-0"
+      <aside className="hidden lg:flex flex-col w-56 shrink-0 fixed top-0 left-0 bottom-0"
         style={{ backgroundColor: 'var(--color-night)', borderRight: '1px solid rgba(255,255,255,0.07)' }}>
         <div className="px-5 py-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
           <Link href="/" className="flex items-center">
             <Image src="/images/parauralogo.png" alt="Paraura" width={120} height={36}
               className="h-8 w-auto object-contain" />
           </Link>
-          <p className="text-xs mt-1" style={{ color: 'rgba(107,163,214,0.5)', paddingLeft: '0' }}>Admin</p>
+          <p className="text-xs mt-1" style={{ color: 'rgba(107,163,214,0.5)' }}>Admin</p>
         </div>
 
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
           {NAV_ITEMS.map((item) => {
             const active = pathname?.startsWith(item.href)
             return (
@@ -132,7 +134,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="lg:hidden fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 h-14"
         style={{ backgroundColor: 'var(--color-night)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <span className="text-white text-xs font-medium tracking-widest uppercase">{currentLabel}</span>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1" style={{ color: 'var(--color-thermal)' }}>
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1"
+          style={{ color: 'var(--color-thermal)' }}>
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {mobileOpen
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -143,7 +146,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-30 pt-14" style={{ backgroundColor: 'var(--color-night)' }}>
+        <div className="lg:hidden fixed inset-0 z-30 pt-14"
+          style={{ backgroundColor: 'var(--color-night)' }}>
           <nav className="px-4 py-4 space-y-1">
             {NAV_ITEMS.map((item) => (
               <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)}
@@ -153,7 +157,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 {item.label}
               </Link>
             ))}
-            <button onClick={signOut} className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm w-full mt-4"
+            <button onClick={signOut}
+              className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm w-full mt-4"
               style={{ color: 'rgba(107,163,214,0.5)', borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '1rem' }}>
               Sign out
             </button>
@@ -161,7 +166,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       )}
 
-      <main className="flex-1 min-w-0 pt-14 lg:pt-0 overflow-auto">
+      <main className="flex-1 min-w-0 pt-14 lg:pt-0 lg:pl-56 overflow-auto">
         {children}
       </main>
     </div>
