@@ -1,6 +1,7 @@
 'use server'
 
 import { createServerClient } from '@/lib/supabase'
+import { sendCampaignNotification } from '@/lib/email'
 
 interface CampaignInterestData {
   campaign_id: string
@@ -8,6 +9,7 @@ interface CampaignInterestData {
   email: string
   whatsapp?: string
   message?: string
+  campaignTitle?: string
 }
 
 export async function submitCampaignInterest(
@@ -44,7 +46,7 @@ export async function submitCampaignInterest(
       return { success: false, error: 'Failed to register interest.' }
     }
 
-    // Also create a CRM inquiry so it appears in the leads dashboard
+    // Also create a CRM inquiry
     await supabase.from('inquiries').insert({
       pilot_id: pilot.id,
       source: 'campaign',
@@ -53,6 +55,15 @@ export async function submitCampaignInterest(
         : 'Campaign interest registered.',
       status: 'new',
       created_at: new Date().toISOString(),
+    })
+
+    // Send email notification
+    await sendCampaignNotification({
+      name: data.name,
+      email: data.email,
+      whatsapp: data.whatsapp,
+      message: data.message,
+      campaignTitle: data.campaignTitle ?? 'Campaign',
     })
 
     return { success: true }

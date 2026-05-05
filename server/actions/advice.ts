@@ -1,6 +1,7 @@
 'use server'
 
 import { createServerClient } from '@/lib/supabase'
+import { sendAdviceNotification, sendAdviceConfirmation } from '@/lib/email'
 
 export interface AdviceFormData {
   name: string
@@ -66,6 +67,25 @@ export async function submitAdviceRequest(data: AdviceFormData): Promise<AdviceR
       console.error('Inquiry insert error:', inquiryError)
       return { success: false, error: 'Failed to submit your request.' }
     }
+
+    // Send emails — fire and forget (don't block form success if email fails)
+    await Promise.all([
+      sendAdviceNotification({
+        name: data.name,
+        email: data.email,
+        whatsapp: data.whatsapp,
+        pilot_level: data.pilot_level,
+        weight: data.weight,
+        wing_of_interest: data.wing_of_interest,
+        flying_goal: data.flying_goal,
+        message: data.message,
+        source: data.source,
+      }),
+      sendAdviceConfirmation({
+        name: data.name,
+        email: data.email,
+      }),
+    ])
 
     return { success: true }
   } catch (err) {
