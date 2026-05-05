@@ -8,7 +8,7 @@ import { supabase } from '@/lib/supabase'
 
 const NAV_ITEMS = [
   {
-    href: '/admin/dashboard',
+    href: '/dashboard',
     label: 'Dashboard',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -17,7 +17,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/admin/leads',
+    href: '/leads',
     label: 'Inquiries',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -26,7 +26,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/admin/pilots',
+    href: '/pilots',
     label: 'Pilots',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -35,7 +35,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/admin/posts',
+    href: '/posts',
     label: 'Insights',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -44,7 +44,7 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: '/admin/products/import',
+    href: '/products/import',
     label: 'Import Product',
     icon: (
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
